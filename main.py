@@ -1,4 +1,29 @@
+import file_data as fd
+import json
+import point_of_interest as poi
+import random as rd
 
+def test():
 
-def main():
-    pass
+    for i in range(0, 5):
+        name = 'Hello-'+str(i)
+        var_type = "POI"
+        desc = str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+"-DESC-"+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))
+        quest = "quest:::"+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))
+        ans = "ans==="+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))
+
+        star = fd.data_file()
+        one = poi.point_of_interest(name,var_type,desc,[quest,ans])
+        star.add_data(one)
+        star.save_to_file()
+
+        # Opening JSON fileW
+        with open('test.json') as f:
+            data = json.load(f)
+
+            print(data['meta_data'])
+
+            for i in data['data']:
+                print(i)
+
+test()
