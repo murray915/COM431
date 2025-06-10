@@ -9,6 +9,8 @@ class TreeNode:
         """ get level of child list """
         level = 0
         p = self.parent
+
+        # print out level
         while p:
             level += 1
             p = p.parent
@@ -22,6 +24,8 @@ class TreeNode:
         spaces = ' ' * self.get_level() * 3
         prefix = spaces + "|__" if self.parent else ""
         print(prefix + self.data)
+
+        # recursion of tree to print all
         if self.children:
             for child in self.children:
                 child.print_tree_level(level)    
@@ -32,6 +36,8 @@ class TreeNode:
         spaces = ' ' * self.get_level() * 3
         prefix = spaces + "|__" if self.parent else ""
         print(prefix + self.data)
+
+        # recursion of tree to print all
         if self.children:
             for child in self.children:
                 child.print_tree()

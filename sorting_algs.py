@@ -1,4 +1,3 @@
-
 # Key notes / learning sources 
     # - https://realpython.com/sorting-algorithms-python/
     # - https://www.w3resource.com/python-exercises/data-structures-and-algorithms/python-search-and-sorting-exercise-4.php
@@ -7,7 +6,7 @@
     # - https://www.datacamp.com/tutorial/python-merge-sort-tutorial
 
 
-def bubble_sort(arr) -> bool:
+def bubble_sort(arr, print_cons = False) -> bool:
     """ bubble sort algorithm: added opt to exit loop after swap """
     try:
         action_taken = True
@@ -36,7 +35,7 @@ def bubble_sort(arr) -> bool:
         return False
 
 
-def merge_sort(list_arr: list):
+def merge_sort(list_arr: list, print_cons = False):
     """ merge sort, input left/right arrays """
     if len(list_arr) > 1:
         # get midpoint
@@ -73,22 +72,61 @@ def merge_sort(list_arr: list):
             k += 1
 
 
+def quicksort(arr: list, left: int, right:int, print_cons = False):
+    """ quicksort, input left/right arrays """
+    if left < right:
+        # get first partition for recursion
+        partition_pos = partition(arr, left, right, print_cons)
 
-import random as rd
-import time
-
-def test_arlg_timing(ori_list):
-    start_time = time.time()
-
-    merge_sort(ori_list)
-    print(f'Output value list: \n {ori_list}')
-    print("--- Run completed in %s seconds ---" % (time.time() - start_time))
+        # split arr left/right recursion to end sort
+        quicksort(arr, left, partition_pos -1, print_cons)
+        quicksort(arr, partition_pos +1, right, print_cons)
 
 
-runset = 'merge_sort'
-ori_list = []
-for _ in range(0, rd.randrange(10,70)):
-    ori_list.append(rd.randrange(0,10000))
+def partition(arr: list, left: int, right: int, print_cons: bool):
+    """ action input arr left/ right against pivot value"""
+    # set start points
+    i = left
+    j = right - 1
+    pivot = arr[right]
 
-print(f'Length of list: {len(ori_list)}, action on runset {runset}:\nOriginal list: \n {ori_list}')
-test_arlg_timing(ori_list)
+    # move through list
+    # i = ASC, j = DESC
+    while i < j:
+        if print_cons:
+            print(f'\nBegining point, \nleft: {left}, right: {right-1}, pivot: {pivot} \n{arr}')
+
+        while i < right and arr[i] < pivot:
+            if print_cons:
+                print(f'i value: {arr[i]}, index {i}')
+            i +=1
+
+        if print_cons:
+            print(f'final i {arr[i]}, index {i}')
+
+        while j > left and arr[j] >= pivot:
+            if print_cons:
+                print(f'j value: {arr[j]}, index {j}')
+            j -=1
+        
+        if print_cons:
+            print(f'final j {arr[j]}, index {j}')
+
+        # at endpoint of search
+        # switch i & j
+        if i < j:
+            arr[i], arr[j] = arr[j], arr[i]
+            if print_cons:
+                print(f'swap i & j: \ni value at index {i} less than pivot - {arr[i]} \nj value at index {j} greater than pivot - {arr[j]} \n Output point \n{arr}\n\n')
+
+    # endpoint found switch values
+    if arr[i] > pivot:
+        if print_cons:
+            print(f'\nj is no longer greater than i, {j} / {i} \nBegining point, \nleft: {left}, right: {right-1}, pivot: {pivot} \n{arr}')
+        arr[i], arr[right] = arr[right], arr[i]
+
+        if print_cons:
+            print(f'swap end point : {arr[i]}, {arr[right]}')    
+    
+    # return new partition point for recursion
+    return i

@@ -1,8 +1,9 @@
 
 class point_of_interest:
 
-    def __init__(self, name: str, poi_type: str, desc: str, quest: list):
+    def __init__(self, poi_id: int, name: str, poi_type: str, desc: str, quest: list):
         """ Main vars for the poi class """
+        self.id = poi_id
         self.name = name
         self.poi_type = poi_type
         self.desc = desc
@@ -16,4 +17,4 @@ class point_of_interest:
         
         except Exception as err: # Exception Block. Return data to user & False
             print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
-            return False
+            return False   

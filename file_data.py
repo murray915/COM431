@@ -36,7 +36,7 @@ class data_file():
             with open("test.json", "rt") as file:
                 df = json.loads(file.readlines()[0])
                 for i in df["data"]:
-                    load_data.append(poi.point_of_interest(i["name"], i["poi_type"], i['desc'], i['quest']))       
+                    load_data.append(poi.point_of_interest(i["id"], i["name"], i["poi_type"], i['desc'], i['quest']))       
         except:
             pass
 
@@ -75,7 +75,37 @@ class data_file():
         except Exception as err: # Exception Block. Return data to user & False
             print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
             return False
-    
+        
+    def get_next_id(self) -> int | bool:
+        """ get next id number from existing file """
+        poi_id_list = []
+
+        try:
+            try:
+                with open("test.json", "rt") as file:
+                    df = json.loads(file.readlines()[0])
+                    for i in df["data"]:
+                        poi_id_list.append(i["id"])
+            except:
+                return 1
+
+            # Initialize loop variable    
+            maximum_val = poi_id_list[0]
+            i = 1
+
+            while i < len(poi_id_list):
+                if poi_id_list[i] > maximum_val:
+                    maximum_val = poi_id_list[i]
+                i += 1
+
+            poi_id_nxt = maximum_val +1
+
+            return poi_id_nxt
+
+        except Exception as err: # Exception Block. Return data to user & False
+            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
+            return False
+
 
 def obj_dict(obj):
     return obj.__dict__

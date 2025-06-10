@@ -12,8 +12,11 @@ def test():
         quest = "quest:::"+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))
         ans = "ans==="+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))
 
+
         star = fd.data_file()
-        one = poi.point_of_interest(name,var_type,desc,[quest,ans])
+        poi_id = star.get_next_id()
+
+        one = poi.point_of_interest(poi_id, name, var_type, desc, [quest,ans])
         star.add_data(one)
         star.save_to_file()
 
