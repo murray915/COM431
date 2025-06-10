@@ -4,12 +4,16 @@
     # - https://stackabuse.com/bubble-sort-in-python/
     # - https://www.youtube.com/watch?v=cVZMah9kEjI 
     # - https://www.datacamp.com/tutorial/python-merge-sort-tutorial
+    # - https://www.youtube.com/watch?v=9KBwdDEwal8 ######## quicksort video ########
 
 
-def bubble_sort(arr, print_cons = False) -> bool:
+def bubble_sort(arr, print_cons = False) -> list | bool:
     """ bubble sort algorithm: added opt to exit loop after swap """
     try:
         action_taken = True
+
+        if print_cons:
+            print(f'Begining point, \n{arr}\n\n')
 
         # set actiontaken as False until swap
         while(action_taken):
@@ -23,12 +27,18 @@ def bubble_sort(arr, print_cons = False) -> bool:
                 for i in range(num):
                     if arr[i]>arr[i+1]:
                         # alt code = arr[i], arr[i+1] = arr[i+1], arr[i]
+                        if print_cons:
+                            print(f'before change: \n{arr}')
+                            print(f'Update : {arr[i]} > {arr[i+1]}, switch values in array')
+                            print(f'after change: \n{arr}\n')
+
                         temp = arr[i]
                         arr[i] = arr[i+1]
                         arr[i+1] = temp
 
                         action_taken = True
-        return True
+
+        return arr
     
     except Exception as err: # Exception Block. Return data to user & False
         print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
@@ -71,6 +81,7 @@ def merge_sort(list_arr: list, print_cons = False):
             j += 1
             k += 1
 
+    return list_arr
 
 def quicksort(arr: list, left: int, right:int, print_cons = False):
     """ quicksort, input left/right arrays """
