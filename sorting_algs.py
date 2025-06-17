@@ -5,7 +5,7 @@
     # - https://www.youtube.com/watch?v=cVZMah9kEjI 
     # - https://www.datacamp.com/tutorial/python-merge-sort-tutorial
     # - https://www.youtube.com/watch?v=9KBwdDEwal8 ######## quicksort video ########
-
+    
 
 def bubble_sort(arr, print_cons = False) -> list | bool:
     """ bubble sort algorithm: added opt to exit loop after swap """
