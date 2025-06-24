@@ -3,6 +3,7 @@ import time
 import sorting_algs as algs
 import queue_class as qc
 import stack_class as sc
+import menu_tree as mt
 
 def get_data_arr(top_range = 15) -> list:
     """ return large random array ; input top random size """
@@ -74,14 +75,96 @@ def demo_queue_data_type():
         demo_que.dequeue()
 
     demo_que.print_queue()
+
+def build_product_tree_demo_001():
+    root = mt.TreeNode("Electronics","All items within electronics")
+
+    # depth 2 menu option
+    laptop = mt.TreeNode("Laptop","Laptop Brands selection")
+    laptop.add_child(mt.TreeNode("Mac","Apple laptop"))
+    laptop.add_child(mt.TreeNode("Surface","Surface laptop"))
+    laptop.add_child(mt.TreeNode("Thinkpad","Thinkpad, notepad"))
+    root.add_child(laptop)
+
+    # depth 3 menu option
+    # Sub menu
+    keyboard = mt.TreeNode("keyboard","Keyboard Brands selection")
+    keyboard.add_child(mt.TreeNode("razor","Razor brand keyboards"))
+    keyboard.add_child(mt.TreeNode("steelseries","Steelseries brand keyboards"))
+    laptop.add_child(keyboard)   
+
+    # depth 2 menu option
+    cellphone = mt.TreeNode("Cell Phone","Phone Brands selection")
+    cellphone.add_child(mt.TreeNode("iPhone","iPhone (mac) phone"))
+    cellphone.add_child(mt.TreeNode("Google Pixel","Google (android) phone"))
+    cellphone.add_child(mt.TreeNode("Vivo","Vivo (android) phone"))
+    root.add_child(cellphone)
+
+    # depth 2 menu option
+    tv = mt.TreeNode("TV","TV Brands selection")
+    tv.add_child(mt.TreeNode("Samsung","Samsung TVs import"))
+    tv.add_child(mt.TreeNode("LG","LG TVs import"))
+    root.add_child(tv)
+
+    return root
+
+def build_product_tree_demo_002():
+    root = mt.TreeNode("Menu Option","n/a")
+
+    # depth 2 menu option
+    laptop = mt.TreeNode("Sub Menu 1","n/a")
+    laptop.add_child(mt.TreeNode("Option 1","Descript - 1"))
+    laptop.add_child(mt.TreeNode("Option 2","Descript - 2"))
+    laptop.add_child(mt.TreeNode("Option 3","Descript - 3"))
+    root.add_child(laptop)
+
+    # depth 3 menu option
+    # Sub menu
+    keyboard = mt.TreeNode("Sub sub-menu ","n/a")
+    keyboard.add_child(mt.TreeNode("Option 1","Descript - 1"))
+    keyboard.add_child(mt.TreeNode("Option 2","Descript - 2"))
+    laptop.add_child(keyboard)   
+
+    # depth 2 menu option
+    cellphone = mt.TreeNode("Sub Menu 2","n/a")
+    cellphone.add_child(mt.TreeNode("Option 1","Descript - 2"))
+    cellphone.add_child(mt.TreeNode("Option 2","Descript - 2"))
+    cellphone.add_child(mt.TreeNode("Option 3","Descript - 2"))
+    root.add_child(cellphone)
+
+    return root
+
     
+def demo_menu_tree():
+    """ demo tree menu """
+    rootnode002 = build_product_tree_demo_002()
+    rootnode001 = build_product_tree_demo_001()
+
+    print('')
+    rootnode001.print_tree()
+    print('')
+    rootnode002.print_tree()
+    print('')
+
+    output = rootnode001.get_child_data("Laptop")
+
+    print(f'"Laptop" sub-menu option & description print ; returned data as list -> \n\n{output}\n\nReturned menu option & Desc for menu printouts to users :')
+    for i in output:
+        print(f'\tMenu Option : {i[0]} \t\tmenu description : {i[1]}')
+    
+    print('')
 
 
 
-runset = 'bubble_sort'
-print_cons = True
-ori_list = get_data_arr()
 
-demo_sorting_algr(ori_list, print_cons, runset)
-demo_queue_data_type()
-demo_stack_data_type()
+
+#runset = 'quicksort'
+#runset = 'merge_sort'
+#runset = 'bubble_sort'
+#print_cons = True
+#ori_list = get_data_arr()
+
+#demo_sorting_algr(ori_list, print_cons, runset)
+#demo_queue_data_type()
+#demo_stack_data_type()
+#demo_menu_tree()

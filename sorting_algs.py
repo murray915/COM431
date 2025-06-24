@@ -26,16 +26,17 @@ def bubble_sort(arr, print_cons = False) -> list | bool:
                 # if larger to right within list
                 for i in range(num):
                     if arr[i]>arr[i+1]:
-                        # alt code = arr[i], arr[i+1] = arr[i+1], arr[i]
                         if print_cons:
-                            print(f'before change: \n{arr}')
-                            print(f'Update : {arr[i]} > {arr[i+1]}, switch values in array')
-                            print(f'after change: \n{arr}\n')
+                            print(f'Before change: \n\t{arr}')
+                            print(f'Update: \n\t{arr[i]} > {arr[i+1]}, switch values in array')
 
+                        # alt code = arr[i], arr[i+1] = arr[i+1], arr[i]
                         temp = arr[i]
                         arr[i] = arr[i+1]
                         arr[i+1] = temp
 
+                        if print_cons:
+                            print(f'After change: \n\t{arr}\n')
                         action_taken = True
 
         return arr
@@ -51,11 +52,16 @@ def merge_sort(list_arr: list, print_cons = False):
         # get midpoint
         midpoint = len(list_arr)//2
         left_half = list_arr[:midpoint]
-        right_half = list_arr[midpoint:]
+        right_half = list_arr[midpoint:]   
         
         # recusion point
-        merge_sort(left_half)
-        merge_sort(right_half)
+        merge_sort(left_half, print_cons)
+        merge_sort(right_half, print_cons)
+
+        if print_cons:
+            print(f'\nMidpoint place choosen : {midpoint}')
+            print(f'\t Left arr : {left_half}')
+            print(f'\t Right arr : {right_half}')
 
         # set count vars
         i = j = k = 0
@@ -63,21 +69,39 @@ def merge_sort(list_arr: list, print_cons = False):
         # check front value of lists, add smaller int
         while i < len(left_half) and j < len(right_half):
             if left_half[i] < right_half[j]:
-                list_arr[k] = left_half[i]                
+                list_arr[k] = left_half[i]  
+
+                if print_cons:
+                    print(f'\t Add to new arr : {list_arr[k]} from left half as it is smaller than right : {left_half[i]} / {right_half[j]}')
+                
                 i += 1
+
             else:
                 list_arr[k] = right_half[j]
+                
+                if print_cons:
+                    print(f'\t Add to new arr : {list_arr[k]} from right half as it is smaller than left : {right_half[j]} / {left_half[i]}')
+                
                 j += 1
             k += 1
         
+
         # add remaining values into list
         while i < len(left_half):
             list_arr[k] = left_half[i]
+
+            if print_cons:
+                print(f'\t Add remaining list to arr : {list_arr[k]} from left half')
+                  
             i += 1
             k += 1
 
         while j < len(right_half):
             list_arr[k] = right_half[j]
+
+            if print_cons:
+                print(f'\t Add remaining list to arr : {list_arr[k]} from right half')
+
             j += 1
             k += 1
 
@@ -141,3 +165,22 @@ def partition(arr: list, left: int, right: int, print_cons: bool):
     
     # return new partition point for recursion
     return i
+
+
+def sort_str_list(str_list: list, orderby = "ASC") -> list:
+    """ sort list of strings return ASC list"""
+    
+    # correct formatting to str of str(s)
+    output_str  = ",".join(str_list)
+    l=output_str.split(',')
+    output_list=[]
+
+    # remove min/max respective of orderby
+    # found value into new output list
+    while l:
+        if orderby == "ASC":
+            output_list+=[l.pop(l.index(min(l)))]
+        else:
+            output_list+=[l.pop(l.index(max(l)))]
+
+    return output_list
