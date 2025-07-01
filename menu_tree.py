@@ -71,13 +71,26 @@ class TreeNode:
                                 output_list.append([k.data,k.desc])
         
         return output_list
-    
+
+def get_main_menu(treenode: object) -> list:
+    """ get the main menu options from treenode input """
+    main_menu = []
+
+    # get main menu options
+    for i in treenode.children:
+        main_menu.append([i.data, i.desc])
+
+    return main_menu
+
+
 def build_menu_tree():
     root = TreeNode("Main Menu","-")
 
     # depth 2 menu option
     # task 1
     submenu1 = TreeNode("Add Point of Interest","User input to create new Point of Interest")
+    submenu1.add_child(TreeNode("Add point of Interest","User input for Point of Interest, required fields & data to be followed"))
+    submenu1.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu1)
 
     # depth 2 menu option
@@ -86,6 +99,7 @@ def build_menu_tree():
     submenu2.add_child(TreeNode("Manual input search - Strict","User input (case & space sensitive) search for POI"))
     submenu2.add_child(TreeNode("Manual input search - Fuzzy","User input (case & space non-sensitve) search for POI"))
     submenu2.add_child(TreeNode("Letter search for POI(s)","User input alphabet letter to return list of POI(s) to select from"))
+    submenu2.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu2)
 
      # depth 2 menu option
@@ -93,6 +107,7 @@ def build_menu_tree():
     submenu3 = TreeNode("Display all Points of Interest (sorted by name)","Display all Points of Interest (POIs) - ASC or DESC")
     submenu3.add_child(TreeNode("Descending order","-"))
     submenu3.add_child(TreeNode("Ascending order","-"))
+    submenu3.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu3)   
 
     # depth 2 menu option
@@ -101,6 +116,7 @@ def build_menu_tree():
     submenu4.add_child(TreeNode("Manual input search - Strict","User input (case & space sensitive) search for POI - then delete"))
     submenu4.add_child(TreeNode("Manual input search - Fuzzy","User input (case & space non-sensitve) search for POI - then delete"))
     submenu4.add_child(TreeNode("Letter search for POI(s)","User input alphabet letter to return list of POI(s) to select from - then delete"))
+    submenu4.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu4)
 
     # depth 2 menu option
@@ -110,6 +126,7 @@ def build_menu_tree():
     submenu5.add_child(TreeNode("Save to user input location","Save file to local directory determined by user folderpath input"))
     submenu5.add_child(TreeNode("Load data from existing file - user selection","Load from user specified file (determined by user folderpath)"))
     submenu5.add_child(TreeNode("Load data from existing file - example dev data","Load from developer example data file (determined automatically)"))
+    submenu5.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu5)
 
     # depth 2 menu option
@@ -117,24 +134,42 @@ def build_menu_tree():
     submenu6 = TreeNode("Questions & Answers for Points of Interest","Add and answer questions on Points of Interest (POI)")
     submenu6.add_child(TreeNode("Add question to Point of Interest","User input search for POI, then add question to be answered"))
     submenu6.add_child(TreeNode("Add answer to Point of Interest","User input search for POI, then add answer to question(s) in order that they were created"))
+    submenu6.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu6)
 
     # depth 2 menu option
     # task 8
     submenu7 = TreeNode("Router from Public transport to Point of Interest","Input user Point of Interest (POI), and respective public transport")
     submenu7.add_child(TreeNode("UNKNOWN","n/a"))
+    submenu7.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu7)
+
+    # depth 2 menu option
+    # additional functionality - show menu descriptions
+    submenu8 = TreeNode("View Menu option descriptions","Descriptions of each sub menu within program")
+    submenu8.add_child(TreeNode("View Menu Descriptions","Output table of sub menu options and their respective descriptions"))
+    submenu8.add_child(TreeNode("Return","Return to Main Menu"))
+    root.add_child(submenu8)
+
+    # depth 2 menu option
+    # additional functionality - demo runs
+    submenu9 = TreeNode("Demonstration of Data Structures & Algorithms","Outputs of Data Structures & Algorithms implemented within program. All output data is example non-POI")
+    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
+    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
+    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
+    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
+    submenu9.add_child(TreeNode("Return","Return to Main Menu"))
+    root.add_child(submenu9)
+
+    submenu10 = TreeNode("Exit","Exit program")
+    root.add_child(submenu10)
 
     return root
 
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
+    import user_inputs as ui
+
     rootnode = build_menu_tree()
-    outputlist = rootnode.get_child_data("Questions & Answers for Points of Interest")
-
-
-    print(f'\n\nOutput list to check :: {outputlist}\n Sub menu options in ::')
-    for i in outputlist:
-        print(f'\t {i}')
-
-    print('')
+    #rootnode.print_tree()
+    ui.View_Menu_option_descriptions(rootnode)

@@ -5,7 +5,36 @@
     # - https://www.youtube.com/watch?v=cVZMah9kEjI 
     # - https://www.datacamp.com/tutorial/python-merge-sort-tutorial
     # - https://www.youtube.com/watch?v=9KBwdDEwal8 ######## quicksort video ########
+
+def lexicographically_compare_two_strs(str_1: str, str_2: str, orderby = "ASC") -> list:    
+    """ input two strings, output correct order of strings in list """
     
+    for x, y in zip(str_1, str_2):
+        
+        if x == y: # if same continue
+            continue
+        elif x > y: # if x larger, return list
+            
+            if orderby == "DESC":
+                return [str_2,str_1]
+            else:
+                return [str_1,str_2]
+            
+    else:  # if x not greater than y, return list as is
+        
+        if orderby == "DESC":
+            # check and return longer str last
+            if len(str_1) > len(str_2):
+                return [str_1,str_2]
+            else:
+                return [str_2,str_1]
+        else:
+            # check and return longer str last
+            if len(str_1) > len(str_2):
+                return [str_2,str_1]
+            else:
+                return [str_1,str_2]
+
 
 def bubble_sort(arr, print_cons = False) -> list | bool:
     """ bubble sort algorithm: added opt to exit loop after swap """

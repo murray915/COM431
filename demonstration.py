@@ -156,8 +156,6 @@ def demo_menu_tree():
 
 
 
-
-
 #runset = 'quicksort'
 #runset = 'merge_sort'
 #runset = 'bubble_sort'
@@ -165,6 +163,7 @@ def demo_menu_tree():
 #ori_list = get_data_arr()
 
 #demo_sorting_algr(ori_list, print_cons, runset)
+
 #demo_queue_data_type()
 #demo_stack_data_type()
 #demo_menu_tree()

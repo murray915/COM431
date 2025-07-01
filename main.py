@@ -3,6 +3,38 @@ import json
 import point_of_interest as poi
 import random as rd
 
+import menu_tree as mt
+import user_inputs as ui
+
+def main():
+
+    rootnode = mt.build_menu_tree()
+    main_menu = mt.get_main_menu(rootnode)
+
+    exit = True
+
+    while exit:
+        user_input = ui.display_options(main_menu, 'Main Menu','menu option')
+
+        # if user input exit leave program
+        if user_input.replace(' ', '_') == "Exit":
+            exit = False
+            
+        else:
+            # print and user input for sub menu selected
+            user_input = rootnode.get_child_data(user_input)            
+            user_input = ui.display_options(user_input, 'Sub Menu', 'menu option')
+            
+            # if user input 6, print menu options
+            if user_input.replace(' ', '_') != 'Return':
+                
+                # call function
+                func = getattr(ui, 'mn_func_' + str(user_input.replace(' ', '_')))       
+                output = func(rootnode)
+
+
+
+
 def test():
 
     for i in range(0, 5):
@@ -33,4 +65,4 @@ def test():
         for i in data['data']:
             print(i)
 
-test()
+main()
