@@ -104,9 +104,9 @@ def build_menu_tree():
 
      # depth 2 menu option
      # task 3
-    submenu3 = TreeNode("Display all Points of Interest (sorted by name)","Display all Points of Interest (POIs) - ASC or DESC")
-    submenu3.add_child(TreeNode("Descending order","-"))
-    submenu3.add_child(TreeNode("Ascending order","-"))
+    submenu3 = TreeNode("Display all Points of Interest","Display all Points of Interest (POIs) - ASC or DESC")
+    submenu3.add_child(TreeNode("Display POIs by descending order","-"))
+    submenu3.add_child(TreeNode("Display POIs by ascending order","-"))
     submenu3.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu3)   
 
@@ -121,17 +121,18 @@ def build_menu_tree():
 
     # depth 2 menu option
     # task 6
-    submenu5 = TreeNode("Save Points of Interest","Save any created Points of Interest to outbound file")
-    submenu5.add_child(TreeNode("Save to automatic location","Save file to local directory determined automatically"))
-    submenu5.add_child(TreeNode("Save to user input location","Save file to local directory determined by user folderpath input"))
-    submenu5.add_child(TreeNode("Load data from existing file - user selection","Load from user specified file (determined by user folderpath)"))
-    submenu5.add_child(TreeNode("Load data from existing file - example dev data","Load from developer example data file (determined automatically)"))
+    submenu5 = TreeNode("Save and Load Points of Interest from file","Save or load any created Points of Interest files, user defined location or default")
+    submenu5.add_child(TreeNode("Save to automatic location","Save file to local directory './data' with user input filename ; path is determined automatically"))
+    submenu5.add_child(TreeNode("Save to user input location","Save file to local directory; determined by user folderpath input & filename"))
+    submenu5.add_child(TreeNode("Load data from existing file - user selection","Load from user specified file (determined by user filename & folderpath)"))
+    submenu5.add_child(TreeNode("Load data from existing file - example dev data","Load from developer example data file(s) (file list determined automatically)"))
+    submenu5.add_child(TreeNode("View json file structure","Load from user input path, and print to screen json structure"))
     submenu5.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu5)
 
     # depth 2 menu option
     # task 7
-    submenu6 = TreeNode("Questions & Answers for Points of Interest","Add and answer questions on Points of Interest (POI)")
+    submenu6 = TreeNode("Questions and Answers for Points of Interest","Add and answer questions on Points of Interest (POI)")
     submenu6.add_child(TreeNode("Add question to Point of Interest","User input search for POI, then add question to be answered"))
     submenu6.add_child(TreeNode("Add answer to Point of Interest","User input search for POI, then add answer to question(s) in order that they were created"))
     submenu6.add_child(TreeNode("Return","Return to Main Menu"))
@@ -153,7 +154,7 @@ def build_menu_tree():
 
     # depth 2 menu option
     # additional functionality - demo runs
-    submenu9 = TreeNode("Demonstration of Data Structures & Algorithms","Outputs of Data Structures & Algorithms implemented within program. All output data is example non-POI")
+    submenu9 = TreeNode("Demonstration of Data Structures and Algorithms","Outputs of Data Structures & Algorithms implemented within program. All output data is example non-POI")
     submenu9.add_child(TreeNode("UNKNOWN","n/a"))
     submenu9.add_child(TreeNode("UNKNOWN","n/a"))
     submenu9.add_child(TreeNode("UNKNOWN","n/a"))
@@ -171,5 +172,5 @@ if __name__ == '__main__':
     import user_inputs as ui
 
     rootnode = build_menu_tree()
-    #rootnode.print_tree()
-    ui.View_Menu_option_descriptions(rootnode)
+    rootnode.print_tree()
+    #ui.View_Menu_option_descriptions(rootnode)

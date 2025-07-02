@@ -1,4 +1,6 @@
 from tabulate import tabulate
+import os
+import file_data as fd
 
 def display_options(all_options: list, title:str, type: str) -> str | bool:
     """
@@ -55,7 +57,7 @@ def print_data_tabulate(headers: list, data: list) -> None:
         ))
     
 
-def mn_func_View_Menu_Descriptions(treenode: object):
+def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to view menu descriptions """
     
     # get main menu
@@ -69,3 +71,98 @@ def mn_func_View_Menu_Descriptions(treenode: object):
     print_data_tabulate(headers, outputlist)
     print('')
 
+    return poi_hs_table
+
+
+def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ from user option to save & load files """
+
+    # General params
+    active_file = fd.data_file() # save file object
+    dirname = os.path.dirname(__file__) # get current path
+    filepath = dirname+'/data/' # default_path
+
+    if user_input_sub == "Save to automatic location":
+        
+        # get filename
+        filename = input('Please input what the save file name should be (file extention is added automatically): ')
+        filepath = filepath+filename+'.json'
+
+         # save file
+        active_file.save_to_file(poi_hs_table, filepath)
+
+    elif user_input_sub == "Save to user input location":
+        
+        # get filename & path
+        filename = input('Please input what the save file name should be (file extention is added automatically): ')
+        filepath = input('Please input the folderpath for the save file to be saved to (expected input format : "S:/Users/EMurray/OneDrive/Documents/Uni") : ')
+        filepath = filepath+"/"+filename+'.json'
+        
+         # save file
+        active_file.save_to_file(poi_hs_table, filepath)
+
+    elif user_input_sub == "Load data from existing file - user selection":
+        
+        # get filename & path
+        filepath = input('Please input the folderpath for the file to be loaded from to (expected input format : "S:/Users/EMurray/OneDrive/Documents/Uni") : ')
+
+        # load file if exists        
+        try:
+            filepath = filepath+"/"+filename+'.json'
+            output_list = active_file.load_data_from_file(filepath)
+            
+            for i in output_list:
+                print(i.poi_attribute('name'))
+                poi_hs_table.put(i.poi_attribute('name'),i)
+
+        except Exception as err: # Exception Block. Return data to user & False
+            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n\tIf attempting to load a file, ensure that the filepath is input in full and correctly. \n\tCheck input, ensure they are forward slashed, and not within quotes or apostrophe example ; "
+                  f"C:/Users/Murray/OneDrive/Documents/Uni/Playground/tester.json \n\tUser input value was :: {filepath}")
+            return False
+        
+        
+    elif user_input_sub == "Load data from existing file - example dev data":        
+        
+        # ask user for dataset size
+        ans = display_options(
+           [['Small Data Set',''],['Large Data Set',''],['Massive Data Set','']], 'Main Menu','menu option'
+        )
+
+        # load file
+        if ans == "Small Data Set":
+            output_list = active_file.load_data_from_file(filepath+"small_data_set.json")
+        elif ans == "Large Data Set":
+            output_list = active_file.load_data_from_file(filepath+"large_data_set.json")
+        elif ans == "Massive Data Set":
+            output_list = active_file.load_data_from_file(filepath+"mass_data_set.json")
+
+        for i in output_list:
+            print(i.poi_attribute('name'))
+            poi_hs_table.put(i.poi_attribute('name'),i)
+
+
+    elif user_input_sub == "View json file structure":
+
+        # print json struc. from user input path
+        try:
+
+            filepath = input('Please input the full filepath for the file to be printed (expected input format : C:/Users/Murray/OneDrive/Documents/Uni/jsontester.json") : ')
+            active_file.view_json_file(filepath)
+
+        except Exception as err: # Exception Block. Return data to user & False
+            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n\tIf attempting to load a file, ensure that the filepath is input in full and correctly. \n\tCheck input, ensure they are forward slashed, and not within quotes or apostrophe example ; "
+                  f"C:/Users/Murray/OneDrive/Documents/Uni/Playground/tester.json \n\tUser input value was :: {filepath}")
+            return False
+        
+    return poi_hs_table
+
+
+def mn_func_Display_all_Points_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    
+    print('\nfor testing\n')
+    list_obj = poi_hs_table.search_in_chunks('values')
+
+    for i in list_obj:
+        print(i.poi_attribute('name'))
+    
+    return poi_hs_table

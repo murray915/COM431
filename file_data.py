@@ -1,62 +1,38 @@
 import json
 from datetime import datetime
 import point_of_interest as poi
+import hashtable as hs
+
 class data_file():
 
     def __init__(self):
-        self.meta_data = self.get_meta_data()
+        self.meta_data = {"Last Modified": str(datetime.now()), "Stored data count": 0}
         self.data = self.load_data_from_file()
 
-
-    def get_meta_data(self):
-        """ Update / Create header meta data for json file """
-        try:
-            with open('test.json') as f:
-                data = json.load(f)
-                count = len(data['data'])
-                last_modified = data['meta_data']['Last Modified']
-
-        except:
-            count = 0
-            last_modified = 'null'
-
-        meta_data = {
-            "Last Modified": last_modified,
-            "Stored data count": count
-        }
-
-        return meta_data
-
-
-    def load_data_from_file(self):
+    def load_data_from_file(self, fullpath = None) -> list:
         """ Load existing file (non-user input) """
-        load_data = []
+        try:
+            if fullpath:
+                load_data = []
+
+                with open(fullpath, "rt") as file:
+                    df = json.loads(file.readlines()[0])
+                    for i in df["data"]:
+                        load_data.append(poi.point_of_interest(i["id"], i["name"], i["poi_type"], i['desc'], i['quest'])) 
+               
+                return load_data
+            
+        except Exception as err: # Exception Block. Return data to user & False
+            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
+            return False       
+    
+    def save_to_file(self, load_data = None, fullpath = None) -> bool:
+        """ Save user session data to input fullpath """
+        self.meta_data = {"Last Modified": str(datetime.now()), "Stored data count": len(load_data)}
+        self.data = load_data.search_in_chunks("values")
 
         try:
-            with open("test.json", "rt") as file:
-                df = json.loads(file.readlines()[0])
-                for i in df["data"]:
-                    load_data.append(poi.point_of_interest(i["id"], i["name"], i["poi_type"], i['desc'], i['quest']))       
-        except:
-            pass
-
-        return load_data
-
-
-    def save_to_file(self) -> bool:
-        """ Save user session data """        
-        try:
-            try: 
-                with open('test.json') as f:
-                    data = json.load(f)
-                    count = len(data['data']) + 1
-
-                self.meta_data = {"Last Modified": str(datetime.now()), "Stored data count": count}
-
-            except:
-                self.meta_data = {"Last Modified": str(datetime.now()), "Stored data count": 1}
-
-            with open("test.json", "wt") as file:     
+            with open(fullpath, "wt") as file:     
                 file.write(json.dumps(self.__dict__, default=obj_dict))
             
             return True
@@ -65,46 +41,14 @@ class data_file():
             print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
             return False
 
-
-    def add_data(self, data) -> bool:
-        """ Add poi (data) to existing self var """
-        try:
-            self.data.append(data)
-            return True
+    def view_json_file(self, filepath: str):
+        """ load and print json file to console """
         
-        except Exception as err: # Exception Block. Return data to user & False
-            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
-            return False
-        
-    def get_next_id(self) -> int | bool:
-        """ get next id number from existing file """
-        poi_id_list = []
+        with open(filepath, "r") as file:
+            df = json.loads(file.readlines()[0])
 
-        try:
-            try:
-                with open("test.json", "rt") as file:
-                    df = json.loads(file.readlines()[0])
-                    for i in df["data"]:
-                        poi_id_list.append(i["id"])
-            except:
-                return 1
-
-            # Initialize loop variable    
-            maximum_val = poi_id_list[0]
-            i = 1
-
-            while i < len(poi_id_list):
-                if poi_id_list[i] > maximum_val:
-                    maximum_val = poi_id_list[i]
-                i += 1
-
-            poi_id_nxt = maximum_val +1
-
-            return poi_id_nxt
-
-        except Exception as err: # Exception Block. Return data to user & False
-            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
-            return False
+        print(json.dumps(df, indent=4))
+        return 
 
 
 def obj_dict(obj):
