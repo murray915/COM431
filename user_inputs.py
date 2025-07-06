@@ -1,10 +1,19 @@
-from tabulate import tabulate
-import os
 import file_data as fd
+import stack_class as sc
+import hashtable as hs
+import point_of_interest as poi
+import demonstration as demo
+import sorting_algs as algs
+import searching_algs as sralgs
+
+import os
+from tabulate import tabulate
+
+
 
 def display_options(all_options: list, title:str, type: str) -> str | bool:
     """
-    query_rows: must consist of two values - id and description i.e. the category_id and category_description.
+    query_rows: must consist of a list of lists (two values) - id and description i.e. the category_id and category_description.
     title: is some text to put above the list of options to act as a title.
     type: is used to customise the prompt to make it appropriate for what you want the user to select.
     """
@@ -53,9 +62,106 @@ def print_data_tabulate(headers: list, data: list) -> None:
     """   
     print(tabulate(
         data, 
-        headers=headers
+        headers=headers,
+        numalign="right",
+        stralign="center",
+        colalign=("left", "left", "left")
         ))
     
+
+def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ from user option to view menu descriptions; add POI or random POI records """
+    
+    # add POI via user input
+    if user_input_sub == "Add point of Interest":
+        # Option Data
+        poi_types = [
+            ["Restaurants",''],
+            ["Museums",''],
+            ["Parks",''],
+            ["Hotels",''],
+            ["Shopping Centers",''],
+            ["Theaters",''],
+            ["Historical Sites",''],
+            ["Stadiums",''],
+            ["Zoos",''],
+            ["Other",'']
+        ]   
+
+        # User questions
+        poi_id = poi_hs_table.get_next_index()
+        name = input('Please input the name of the new Point of Interest: ')
+        poi_type = display_options(poi_types, 'Point of Interest Types', 'Point of Interest type option')
+        desc = input('Please input a description of the new Point of Interest: ')
+        quest = []
+
+        poi_hs_table.put(name, poi.point_of_interest(poi_id, name, poi_type, desc, quest))
+    
+    # add POI via random data input
+    elif "Add random data point of Interest data" == user_input_sub:
+        user_input = True
+
+        while user_input:
+            num_pois = input('Please input the number of random POI records to be created : ')       
+
+            if num_pois.isnumeric() or num_pois.lower() == 'exit':
+                user_input = False
+                demo.create_test_pois(poi_hs_table, int(num_pois))
+            else:
+                print('Please input number values; or to exit this function, type "exit"')
+
+    return poi_hs_table
+    
+
+
+def mn_func_Search_for_Point_of_Interests(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ from user option to view menu descriptions """
+    #general params
+    sort_list = []
+    data_list = []
+    tabulate_data = []
+    header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
+    
+    # get data list from hashtable
+    list_obj = poi_hs_table.search_in_chunks('values')
+
+    for i in list_obj:
+        sort_list.append(i.poi_attribute('name'))
+        data_list.append([i.poi_attribute('name'), i.poi_attribute('all')])
+
+    sorted_list = algs.merge_sort(data_list)
+
+    # user params
+    if input('Is search to be case sensitive? (Yes / No) : ').lower() == 'yes':
+        case_sens = True
+    else:
+        case_sens = False
+
+    user_input = input('Please input the name of the Point of Interest to get data for : ')
+
+    if user_input_sub in ["Manual input search - Fuzzy","Letter search for POI(s)"]:
+        fuzzy_sear = True
+    else:
+        fuzzy_sear = False
+
+    # search list for value
+    search_output = sralgs.search_algs_select(sorted_list, case_sens, fuzzy_sear, user_input)
+    
+    print(f'fuck this shit {search_output}, {isinstance(search_output, int)}')
+
+    # output data to correct format to print
+    if isinstance(search_output, int):
+        tabulate_data.append(data_list[i][1])
+    else:
+        for i in search_output:
+            tabulate_data.append(data_list[i][1])
+
+    # print tabulate output to screen
+    print('')    
+    print_data_tabulate(header_list, tabulate_data)
+    print('')
+
+    return poi_hs_table
 
 def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to view menu descriptions """
@@ -68,7 +174,8 @@ def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object
     headers = ["Option","Description"]
     
     print('')
-    print_data_tabulate(headers, outputlist)
+    print_data_tabulate(headers, 
+                        outputlist)                        
     print('')
 
     return poi_hs_table
@@ -88,9 +195,15 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
         filename = input('Please input what the save file name should be (file extention is added automatically): ')
         filepath = filepath+filename+'.json'
 
-         # save file
-        active_file.save_to_file(poi_hs_table, filepath)
+        try:
+            # save file
+            active_file.save_to_file(poi_hs_table, filepath)
 
+        except Exception as err: # Exception Block. Return data to user & False
+            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n\tIf attempting to save a file, ensure that the filepath is input in full and correctly. \n\tCheck input, ensure they are forward slashed, and not within quotes or apostrophe example ; "
+                  f"C:/Users/Murray/OneDrive/Documents/Uni/Playground/ \n\tUser input value was :: {filepath}")
+            return False
+    
     elif user_input_sub == "Save to user input location":
         
         # get filename & path
@@ -98,9 +211,15 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
         filepath = input('Please input the folderpath for the save file to be saved to (expected input format : "S:/Users/EMurray/OneDrive/Documents/Uni") : ')
         filepath = filepath+"/"+filename+'.json'
         
-         # save file
-        active_file.save_to_file(poi_hs_table, filepath)
+        try:
+            # save file
+            active_file.save_to_file(poi_hs_table, filepath)
 
+        except Exception as err: # Exception Block. Return data to user & False
+            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n\tIf attempting to save a file, ensure that the filepath is input in full and correctly. \n\tCheck input, ensure they are forward slashed, and not within quotes or apostrophe example ; "
+                  f"C:/Users/Murray/OneDrive/Documents/Uni/Playground/ \n\tUser input value was :: {filepath}")
+            return False
+    
     elif user_input_sub == "Load data from existing file - user selection":
         
         # get filename & path
@@ -158,11 +277,48 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
 
 
 def mn_func_Display_all_Points_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
-    
-    print('\nfor testing\n')
-    list_obj = poi_hs_table.search_in_chunks('values')
+    """ display all points of interest within curr hashtable """
 
+    # general params
+    list_obj = poi_hs_table.search_in_chunks('values')
+    header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
+    tabulate_data = []
+    sort_list = []
+    data_list = []    
+    sort_order = 'ASC'
+    
+    # get data list from hashtable
     for i in list_obj:
-        print(i.poi_attribute('name'))
+        sort_list.append(i.poi_attribute('name'))
+        data_list.append([i.poi_attribute('name'), i.poi_attribute('all')])
+
+    # choose sorting alg; based on list size
+    if poi_hs_table.__len__() < 300:
+        sorted_list = algs.bubble_sort(sort_list)
+    elif poi_hs_table.__len__() >= 300 and  poi_hs_table.__len__() < 1500:
+        sorted_list = algs.merge_sort(sort_list)
+    else:
+        sorted_list = algs.quicksort(sort_list, 0, len(sort_list) -1)
+
+    # sort data ASC/DESC
+    if user_input_sub == "Display POIs by descending order":
+        sorted_list.reverse()
+
+    # output data to correct format to print
+    for i in sorted_list:
+        for j in data_list:
+            if j[0] == i:
+                tabulate_data.append(j[1])
+                data_list.remove(j)
+
+    # print tabulate output to screen
+    print('')    
+    print_data_tabulate(header_list, tabulate_data)
+    print('')
     
     return poi_hs_table
+
+
+
+if __name__ == '__main__':
+    pass

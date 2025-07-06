@@ -90,6 +90,7 @@ def build_menu_tree():
     # task 1
     submenu1 = TreeNode("Add Point of Interest","User input to create new Point of Interest")
     submenu1.add_child(TreeNode("Add point of Interest","User input for Point of Interest, required fields & data to be followed"))
+    submenu1.add_child(TreeNode("Add random data point of Interest data","User input number of random Point of Interest data records to be added"))
     submenu1.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu1)
 
@@ -166,11 +167,3 @@ def build_menu_tree():
     root.add_child(submenu10)
 
     return root
-
-
-if __name__ == '__main__':
-    import user_inputs as ui
-
-    rootnode = build_menu_tree()
-    rootnode.print_tree()
-    #ui.View_Menu_option_descriptions(rootnode)

@@ -32,8 +32,8 @@ class point_of_interest:
             return self.desc
         elif attribute == 'quest':
             return self.quest
-        elif attribute == 'all':            
-            return self.id, self.name, self.poi_type, self.desc, self.quest
+        elif attribute == 'all': 
+            return self.id, self.name, self.poi_type, self.desc
         
     def update_id(self, new_id: int):
         """ update id based on input """

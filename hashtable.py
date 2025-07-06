@@ -107,34 +107,3 @@ class Hashmap():
             hash_result = (hash_result * 31 + ord(c)) % self.capacity
 
         return hash_result
-
-
-
-if __name__ == '__main__':
-    import uuid
-    import matplotlib.pyplot as plt
-
-    hash_map = Hashmap(30)
-
-    for _ in range(20):
-        hash_map.put(uuid.uuid4(), 'Some_Values')
-
-    hash_map.put("TEST", 'Some_Values')
-
-    allitems = hash_map.search_in_chunks("items")
-
-    print(allitems)
-
-    x = []
-    y = []
-
-    for i, chunk in enumerate(hash_map.chunks):
-        x.append(i)
-        y.append(len(chunk))
-
-    print(hash_map.__len__())
-    print(hash_map.__contains__("TEST"))
-
-    plt.bar(x,y)
-    #plt.show()
-
