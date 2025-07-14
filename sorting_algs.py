@@ -196,20 +196,53 @@ def partition(arr: list, left: int, right: int, print_cons: bool):
     return i
 
 
-def sort_str_list(str_list: list, orderby = "ASC") -> list:
-    """ sort list of strings return ASC list"""
+def sort_str_list(str_list: list, orderby = "ASC", list_index_sort = 0) -> list | bool:
+    """ sort list of strings (or list of lists/tuples) return ASC list. If not list/tuple/int/str or error on sort False returned """
     
-    # correct formatting to str of str(s)
-    output_str  = ",".join(str_list)
-    l=output_str.split(',')
-    output_list=[]
+    try:
+            
+        if isinstance(str_list[0], (list, tuple)):
 
-    # remove min/max respective of orderby
-    # found value into new output list
-    while l:
-        if orderby == "ASC":
-            output_list+=[l.pop(l.index(min(l)))]
+            # correct formatting to str of str(s)
+            output_list=[]
+
+            # remove min/max respective of orderby
+            # found value into new output list
+            while str_list:
+                if orderby == "ASC":
+                    res = min(i[list_index_sort] for i in str_list)
+                    for i, element in enumerate(str_list):
+                        if element[list_index_sort] == res:
+                            output_list.append(element)
+                            str_list.pop(i)
+                else:
+                    res = max(i[list_index_sort] for i in str_list)
+                    for i, element in enumerate(str_list):
+                        if element[list_index_sort] == res:
+                            output_list.append(element)
+                            str_list.pop(i)
+
+        elif isinstance(str_list[0], (int, str)):
+
+            # correct formatting to str of str(s)
+            output_str  = ",".join(str_list)
+            l=output_str.split(',')
+            output_list=[]
+
+            # remove min/max respective of orderby
+            # found value into new output list
+            while l:
+                if orderby == "ASC":
+                    output_list+=[l.pop(l.index(min(l)))]
+                else:
+                    output_list+=[l.pop(l.index(max(l)))]
+
         else:
-            output_list+=[l.pop(l.index(max(l)))]
+            return False
+        
 
+    except Exception as err: # Exception Block. Return data to user & False
+        print(f"\n\n** Unexpected {err=}, {type(err)=} ** \n\n")
+        return False
+    
     return output_list

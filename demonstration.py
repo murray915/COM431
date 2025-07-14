@@ -167,14 +167,14 @@ def create_test_pois(poi_hs_table: object, max_test_poi: int) -> object:
         "Yellowstone National Park", "Yosemite National Park", "Redwood National Park", "Victoria Falls", "Angel Falls",
         "Great Barrier Reef", "Serengeti National Park", "Galápagos Islands", "Antelope Canyon", "Alhambra",
         "Mont Saint-Michel", "Neuschwanstein Castle", "Prague Castle", "Brandenburg Gate", "Berlin Wall",
-        "Versailles Palace", "Buckingham Palace", "Tower of London", "St. Peter’s Basilica", "Vatican Museums",
+        "Versailles Palace", "Buckingham Palace", "Tower of London", "St. Peters Basilica", "Vatican Museums",
         "Sagrada Familia", "Park Güell", "La Rambla", "Leaning Tower of Pisa", "Trevi Fountain",
         "The Shard", "Empire State Building", "Brooklyn Bridge", "Chicago Riverwalk", "CN Tower",
         "Banaras Ghats", "Meenakshi Temple", "Amber Fort", "Red Fort", "Qutub Minar",
         "Gateway of India", "Marina Beach", "Charminar", "Hampi Ruins", "Ajanta Caves",
         "Borobudur Temple", "Ubud Monkey Forest", "Ha Long Bay", "Angkor Wat", "Bagan Temples",
         "Blue Lagoon", "Reykjavik Church", "Thingvellir National Park", "Geysir", "Skógafoss",
-        "Plitvice Lakes", "Dubrovnik Old Town", "Diocletian’s Palace", "Lake Bled", "Matterhorn",
+        "Plitvice Lakes", "Dubrovnik Old Town", "Diocletians Palace", "Lake Bled", "Matterhorn",
         "Zermatt", "Lake Geneva", "Château de Chillon", "Lake Como", "Cinque Terre",
         "Amalfi Coast", "Pompeii", "Mt. Vesuvius", "Blue Mosque", "Hagia Sophia",
         "Topkapi Palace", "Cappadocia", "Pamukkale", "Ephesus", "Mount Kilimanjaro",
@@ -189,7 +189,8 @@ def create_test_pois(poi_hs_table: object, max_test_poi: int) -> object:
         "Christ the Redeemer", "Iguazu Falls", "Sugarloaf Mountain", "Copacabana Beach", "Amazon Rainforest",
         "Cusco", "Sacred Valley", "Nazca Lines", "Lake Titicaca", "Arequipa",
         "Moai Statues of Easter Island", "Mount Rushmore", "Walt Disney World", "Universal Studios", "Smithsonian Institution"
-    ]    
+    ]
+
     poi_questions = [
         "What are the top attractions nearby?","Are there any historical sites in this area?",
         "Where can I find the best local food?","Is there a museum close to here?","What are the best places to take photos around here?", "Are there any guided tours available?",

@@ -3,7 +3,7 @@ def search_algs_select(sorted_list: list, case_sens: bool, fuzzy_sear: bool, use
     """ input list of selection options, return position of value or list of possible values """
 
     if sorted_list.count(user_search_val) >= 2 or case_sens == False or fuzzy_sear == True:
-        return linear_search(sorted_list, user_search_val, case_sens, True)
+        return linear_search(sorted_list, user_search_val, case_sens, fuzzy_sear)
     else:
         return binary_search(sorted_list, user_search_val, case_sens)
     
@@ -43,7 +43,7 @@ def linear_search(search_list: list, search_value: str, search_sensitvity = True
         if not output_list:
             return None
         else:
-            return output_list      
+            return output_list
          
     except Exception as err: # Exception Block. Return data to user & False
         print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")

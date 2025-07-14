@@ -4,10 +4,12 @@ import point_of_interest as poi
 import random as rd
 import demonstration as demo
 import sorting_algs as algs
+import searching_algs as sralgs
 
 import menu_tree as mt
 import user_inputs as ui
 import hashtable as hs
+from tabulate import tabulate
 
 def main():
 
@@ -40,7 +42,7 @@ def main():
                 poi_hs_table = func(rootnode, poi_hs_table, user_input_sub)  
 
 
-main()
+#main()
 
 
 if __name__ == '__main__':
@@ -51,11 +53,55 @@ if __name__ == '__main__':
     actfile = fd.data_file()
 
     # get test data
-    poi_hs_table = demo.create_test_pois(poi_hs_table, 25)
+    poi_hs_table = demo.create_test_pois(poi_hs_table, 20 )
 
     # get paths
     dirname = os.path.dirname(__file__)
     filepath = dirname+'/data/'
     
-    user_input = ''    
-    ui.mn_func_Search_for_Point_of_Interests(treenode, poi_hs_table, user_input)
+    user_input_sub = 'Manual input search - Fuzzy'
+
+
+    #general params
+    tabulate_data = []
+    search_list = []
+    header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
+
+    #ui.mn_func_Search_for_Point_of_Interests(treenode, poi_hs_table, user_input)
+    list_obj = poi_hs_table.search_in_chunks('items')
+
+    outlist_sorted = algs.sort_str_list(list_obj,"ASC",0)
+
+    # user params
+    if input('Is search to be case sensitive? (Yes / No) : ').lower() == 'yes':
+        case_sens = True
+    else:
+        case_sens = False
+
+    user_input = input('Please input the name of the Point of Interest to get data for : ')
+
+    if user_input_sub in ["Manual input search - Fuzzy","Letter search for POI(s)"]:
+        fuzzy_sear = True
+    else:
+        fuzzy_sear = False
+
+    # search list for value
+    search_list = [i[0] for i in outlist_sorted]
+    search_output = sralgs.search_algs_select(search_list, case_sens, fuzzy_sear, user_input)
+    
+    print(f'\n\n{search_output}\n\n')
+
+
+    #output data to correct format to print
+    for i, value in enumerate(outlist_sorted):
+        if i in search_output:
+            tabulate_data.append(value[1].poi_attribute('all'))
+
+    # print tabulate output to screen
+    print('')    
+    ui.print_data_tabulate(header_list, tabulate_data)
+    print('')
+
+    
+
+

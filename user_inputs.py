@@ -117,19 +117,13 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
 def mn_func_Search_for_Point_of_Interests(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to view menu descriptions """
     #general params
-    sort_list = []
-    data_list = []
     tabulate_data = []
+    search_list = []
     header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
     
     # get data list from hashtable
     list_obj = poi_hs_table.search_in_chunks('values')
-
-    for i in list_obj:
-        sort_list.append(i.poi_attribute('name'))
-        data_list.append([i.poi_attribute('name'), i.poi_attribute('all')])
-
-    sorted_list = algs.merge_sort(data_list)
+    outlist_sorted = algs.sort_str_list(list_obj,"ASC",0)
 
     # user params
     if input('Is search to be case sensitive? (Yes / No) : ').lower() == 'yes':
@@ -145,16 +139,13 @@ def mn_func_Search_for_Point_of_Interests(treenode: object, poi_hs_table: object
         fuzzy_sear = False
 
     # search list for value
-    search_output = sralgs.search_algs_select(sorted_list, case_sens, fuzzy_sear, user_input)
+    search_list = [i[0] for i in outlist_sorted]
+    search_output = sralgs.search_algs_select(search_list, case_sens, fuzzy_sear, user_input)
     
-    print(f'fuck this shit {search_output}, {isinstance(search_output, int)}')
 
     # output data to correct format to print
-    if isinstance(search_output, int):
-        tabulate_data.append(data_list[i][1])
-    else:
-        for i in search_output:
-            tabulate_data.append(data_list[i][1])
+    for i in search_output:
+        tabulate_data.append(data_list[i][0])
 
     # print tabulate output to screen
     print('')    
