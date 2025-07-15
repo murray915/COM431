@@ -27,7 +27,7 @@ class Queue:
     def enqueue(self, data) -> bool:
         """ add value to tail of queue """
         if(self.isfull()):
-            print("Queue is full")
+            #print("Queue is full")
             return False
             
         self.storage[self.tail] = data
@@ -39,7 +39,7 @@ class Queue:
     def dequeue(self) -> str | bool:
         """ remove value from head of queue """
         if(self.isempty()):
-            print("Queue is empty")
+            #print("Queue is empty")
             return False
     
         data = self.storage[self.head]
@@ -48,13 +48,31 @@ class Queue:
         
         return data
     
+    def get_next_value(self) -> list | int | str | bool:
+        """ return the next value in queue, empty queue = False"""
+        if self.isempty():
+            return False
+        else:
+            return self.storage[self.head]   
+
+    def get_full_queue(self) -> list | bool:
+        """ return full queue if empty, False"""
+        if self.isempty():
+            return False
+        else:
+            return self.storage
+
     def print_queue(self) -> bool:
         """ print values within queue """
 
         print(f'Queue Metrics:')
         print(f'\tCapacity of the queue is : {self.capacity}')
-        print(f'\tHead of the queue is: {self.head}')
-        print(f'\tTail of the queue is: {self.tail}') 
+        if self.isempty():
+            print(f'\tHead of the queue is empty')
+            print(f'\tTail of the queue is empty')
+        else:
+            print(f'\tHead of the queue is index: {self.head}, value within = {self.storage[self.head]}')
+            print(f'\tTail of the queue is index: {self.tail}, value before end of queue = {self.storage[self.tail-1]}') 
         print(f'\tTotal size of the queue is {self.size}')
 
         print(f'The contents of the queue is: ')        

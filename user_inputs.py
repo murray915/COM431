@@ -1,21 +1,20 @@
 import file_data as fd
-import stack_class as sc
-import hashtable as hs
 import point_of_interest as poi
 import demonstration as demo
 import sorting_algs as algs
 import searching_algs as sralgs
+import queue_class as qc
 
 import os
 from tabulate import tabulate
 
 
-
-def display_options(all_options: list, title:str, type: str) -> str | bool:
+def display_options(all_options: list, title:str, type: str, return_opt = False) -> str | bool:
     """
     query_rows: must consist of a list of lists (two values) - id and description i.e. the category_id and category_description.
     title: is some text to put above the list of options to act as a title.
     type: is used to customise the prompt to make it appropriate for what you want the user to select.
+    return_opt: if False, selected_option returned. If true, option number returned. Default FALSE 
     """
     try:
         option_num = 1
@@ -47,8 +46,12 @@ def display_options(all_options: list, title:str, type: str) -> str | bool:
                 
             else:
                 selected_option = int(prompt)
-                
-        return option_list[selected_option - 1]
+        
+        # returned value on return_opt
+        if return_opt:
+            return prompt
+        else:
+            return option_list[selected_option - 1]
     
     except Exception as err: # Exception Block. Return data to user & False
         print(f"\n\n** Unexpected {err=}, {type(err)=} ** \n\n")
@@ -64,8 +67,7 @@ def print_data_tabulate(headers: list, data: list) -> None:
         data, 
         headers=headers,
         numalign="right",
-        stralign="center",
-        colalign=("left", "left", "left")
+        stralign="center"
         ))
     
 
@@ -113,39 +115,29 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
     return poi_hs_table
     
 
-
 def mn_func_Search_for_Point_of_Interests(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to view menu descriptions """
     #general params
     tabulate_data = []
     search_list = []
     header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
-    
-    # get data list from hashtable
-    list_obj = poi_hs_table.search_in_chunks('values')
+
+    # get repo of pois & sort
+    list_obj = poi_hs_table.search_in_chunks('items')
     outlist_sorted = algs.sort_str_list(list_obj,"ASC",0)
 
     # user params
-    if input('Is search to be case sensitive? (Yes / No) : ').lower() == 'yes':
-        case_sens = True
-    else:
-        case_sens = False
-
+    case_sens, fuzzy_sear = sralgs.user_search_params(user_input_sub)
     user_input = input('Please input the name of the Point of Interest to get data for : ')
-
-    if user_input_sub in ["Manual input search - Fuzzy","Letter search for POI(s)"]:
-        fuzzy_sear = True
-    else:
-        fuzzy_sear = False
 
     # search list for value
     search_list = [i[0] for i in outlist_sorted]
     search_output = sralgs.search_algs_select(search_list, case_sens, fuzzy_sear, user_input)
     
-
-    # output data to correct format to print
-    for i in search_output:
-        tabulate_data.append(data_list[i][0])
+    #output data to correct format to print
+    for i, value in enumerate(outlist_sorted):
+        if i in search_output:
+            tabulate_data.append(value[1].poi_attribute('all'))
 
     # print tabulate output to screen
     print('')    
@@ -154,20 +146,60 @@ def mn_func_Search_for_Point_of_Interests(treenode: object, poi_hs_table: object
 
     return poi_hs_table
 
-def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
-    """ from user option to view menu descriptions """
-    
-    # get main menu
-    outputlist = []
-    for i in range(0, len(treenode.children)):
-        outputlist.append([treenode.children[i].data, treenode.children[i].desc])
 
-    headers = ["Option","Description"]
+def mn_func_Display_all_Points_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ display all points of interest within curr hashtable """
+
+    # general params
+    list_obj = poi_hs_table.search_in_chunks('values')
+    header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
+    tabulate_data = []
+    sort_list = []
+    data_list = []    
+    sort_order = 'ASC'
     
+    # get data list from hashtable
+    for i in list_obj:
+        sort_list.append(i.poi_attribute('name'))
+        data_list.append([i.poi_attribute('name'), i.poi_attribute('all')])
+
+    # choose sorting alg; based on list size
+    if poi_hs_table.__len__() < 300:
+        sorted_list = algs.bubble_sort(sort_list)
+    elif poi_hs_table.__len__() >= 300 and  poi_hs_table.__len__() < 1500:
+        sorted_list = algs.merge_sort(sort_list)
+    else:
+        sorted_list = algs.quicksort(sort_list, 0, len(sort_list) -1)
+
+    # sort data ASC/DESC
+    if user_input_sub == "Display POIs by descending order":
+        sorted_list.reverse()
+
+    # output data to correct format to print
+    for i in sorted_list:
+        for j in data_list:
+            if j[0] == i:
+                tabulate_data.append(j[1])
+                data_list.remove(j)
+
+    # print tabulate output to screen
+    print('')    
+    print_data_tabulate(header_list, tabulate_data)
     print('')
-    print_data_tabulate(headers, 
-                        outputlist)                        
-    print('')
+    
+    return poi_hs_table
+
+def mn_func_Delete_Point_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ delete point of interest from user input """
+    
+    ans = 'default'
+    user_search_value = input('Please input the name of the Point of Interest to get data for : ')
+    poi_name, poi_obj, ans = sralgs.search_algs_select(poi_hs_table, user_search_value, user_input_sub)
+    
+    # user input, delete poi?
+    if poi_name != None:
+        if ans.lower() != 'no' and poi_name != 'Exit':
+            poi_hs_table.remove_key(poi_name,poi_obj)
 
     return poi_hs_table
 
@@ -267,49 +299,63 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
     return poi_hs_table
 
 
-def mn_func_Display_all_Points_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
-    """ display all points of interest within curr hashtable """
+def mn_func_Questions_and_Answers_for_Points_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ from user option to update poi with questions/answers """
+    ans = 'default'
+    user_search_value = input('Please input the name of the Point of Interest to get data for : ')
+    # Default to fuzzy search
+    poi_name, poi_obj, ans = sralgs.search_algs_select(poi_hs_table, user_search_value, "Fuzzy")
+        
+    # user input, update poi?
+    if poi_name != None:
+        if ans.lower() != 'no' and poi_name != 'Exit':
+            header_list = ['Questions','Answers']
+            question_data = []
 
-    # general params
-    list_obj = poi_hs_table.search_in_chunks('values')
-    header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
-    tabulate_data = []
-    sort_list = []
-    data_list = []    
-    sort_order = 'ASC'
-    
-    # get data list from hashtable
-    for i in list_obj:
-        sort_list.append(i.poi_attribute('name'))
-        data_list.append([i.poi_attribute('name'), i.poi_attribute('all')])
+            quest_ans = poi_obj.poi_attribute('quest')
 
-    # choose sorting alg; based on list size
-    if poi_hs_table.__len__() < 300:
-        sorted_list = algs.bubble_sort(sort_list)
-    elif poi_hs_table.__len__() >= 300 and  poi_hs_table.__len__() < 1500:
-        sorted_list = algs.merge_sort(sort_list)
-    else:
-        sorted_list = algs.quicksort(sort_list, 0, len(sort_list) -1)
+            if not quest_ans and user_input_sub == 'Add answer to Point of Interest':
+                print('There are no questions to answer for this point of interest')
+            else:
+                quest_que = qc.Queue(12)
 
-    # sort data ASC/DESC
-    if user_input_sub == "Display POIs by descending order":
-        sorted_list.reverse()
+                for i in quest_ans:
+                    quest_que.enqueue(i)
+                    question_data.append((i[0],i[1]))
+                
+                #print tabulate output to screen
+                print(f'\nCurrent Questions for Point of Interest.\nThese are answered in top to bottom order, and once answered are removed\n')
+                print_data_tabulate(header_list, question_data)
+                print('')
 
-    # output data to correct format to print
-    for i in sorted_list:
-        for j in data_list:
-            if j[0] == i:
-                tabulate_data.append(j[1])
-                data_list.remove(j)
+                if user_input_sub == "Add answer to Point of Interest":
+                    input(f'\nPlease input an answer to the next question :: \n{quest_que.get_next_value()[0]}\n:')
+                    quest_que.dequeue()
+                else:
+                    quest_que.enqueue([input(f'Please input a question to add to the point of interest : '),''])
 
-    # print tabulate output to screen
-    print('')    
-    print_data_tabulate(header_list, tabulate_data)
-    print('')
-    
+                question_data = []
+
+                while quest_que.get_next_value() != False:
+                    question_data.append(quest_que.get_next_value())
+                    quest_que.dequeue()
+                                
+                poi_obj.user_ques_ans_update(question_data)
+
     return poi_hs_table
 
+def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ from user option to view menu descriptions """
+    
+    # get main menu
+    outputlist = []
+    for i in range(0, len(treenode.children)):
+        outputlist.append([treenode.children[i].data, treenode.children[i].desc])
 
+    headers = ["Option","Description"]
+    
+    print('')
+    print_data_tabulate(headers, outputlist)                        
+    print('')
 
-if __name__ == '__main__':
-    pass
+    return poi_hs_table

@@ -255,11 +255,12 @@ def create_test_pois(poi_hs_table: object, max_test_poi: int) -> object:
         for _ in range(1, rd.randrange(2 ,5)):            
             question = poi_questions[rd.randrange(0 ,39)]
             
-            if rd.randrange(0 , 9) >= 5:
-                ans = str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))
-            else:
-                ans = ''
+            # if rd.randrange(0 , 9) >= 5:
+            #     ans = str(rd.randrange(0,2000))+str(rd.randrange(0,2000))+str(rd.randrange(0,2000))
+            # else:
+            #     ans = ''
 
+            ans = ''
             quest.append([question,ans])
 
         print(f'Point of Interest added into application: \n\tPOI ID : {poi_id}  \n\tPOI Name : {name} \n\tPOI Description : {desc}')

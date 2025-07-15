@@ -28,21 +28,6 @@ class Hashmap():
         else:
             return False
     
-    # def put(self, key, value) -> None:
-    #     """ check if key in table, if true update, else insert """
-    #     index = self._hash_function(key)
-    #     chunk = self.chunks[index]
-
-    #     for i, (k, v) in enumerate(chunk):
-    #         if k == key:
-    #             chunk[i] = (key, value)
-    #             self.next_index +=1
-    #             break
-    #     else:
-    #         chunk.append((key, value))
-    #         self.size +=1
-    #         self.next_index +=1
-
     def put(self, key, value) -> None:
         """ check if key in table, if true update, else insert """
         index = self.hash_function(key)
@@ -63,7 +48,6 @@ class Hashmap():
             if k == key:
                 
                 if self.__contains__(key) >= 2:
-                    print('yes')
                     output_list.append(v)
                 else:
                     return v
@@ -72,22 +56,34 @@ class Hashmap():
             return output_list
         else:
             return False
-
-    def remove_key(self, key) -> bool:
+        
+    def remove_key(self, key: str, value: object) -> bool:
         """ check if key in table, if true remove k, else return bool """
         index = self.hash_function(key)
         chunk = self.chunks[index]
 
-        for i, (k, v) in enumerate(chunk):
-            if k == key:
-                del chunk[i]
-                self.size -=1
-                self.next_index -=1
+        if len(chunk) == 1:
+            for i, (k, v) in enumerate(chunk):
+                if k == key and v == value:
+                    del chunk[i]
+                    self.size -=1
+                    self.next_index -=1
 
-                return True
+                    return True
+                else:
+                    return False
+                
         else:
-            return False
+            for i, (k, v) in enumerate(chunk):
+                if k == key and v == value:
+                    chunk.pop(i)
+                    self.size -=1
+                    self.next_index -=1
 
+                    return True
+            else:
+                return False
+        
     def search_in_chunks(self, search_val: str) -> list | str:
         """ return key/value from user input search_val index """
         

@@ -12,7 +12,7 @@ class point_of_interest:
     def user_ques_ans_update(self, quest: list) -> bool:
         """ Add user quest/ans to self.quest list """        
         try:
-            self.quest.append(quest)            
+            self.quest = quest            
             return True
         
         except Exception as err: # Exception Block. Return data to user & False

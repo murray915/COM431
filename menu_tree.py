@@ -97,9 +97,8 @@ def build_menu_tree():
     # depth 2 menu option
     # task 2 & 4
     submenu2 = TreeNode("Search for Point of Interests","Search for existing Points of Interest (POI) in applicaiton")
-    submenu2.add_child(TreeNode("Manual input search - Strict","User input (case & space sensitive) search for POI"))
-    submenu2.add_child(TreeNode("Manual input search - Fuzzy","User input (case & space non-sensitve) search for POI"))
-    submenu2.add_child(TreeNode("Letter search for POI(s)","User input alphabet letter to return list of POI(s) to select from"))
+    submenu2.add_child(TreeNode("Manual input search - Strict","User input (case sensitive optional, fuzzy search off) search for POI"))
+    submenu2.add_child(TreeNode("Manual input search - Fuzzy","User input (case & space non-sensitve, fuzzy search on) search for POI"))
     submenu2.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu2)
 
@@ -116,7 +115,6 @@ def build_menu_tree():
     submenu4 = TreeNode("Delete Point of Interest","Search for existing Points of Interest (POI) in applicaiton to delete")
     submenu4.add_child(TreeNode("Manual input search - Strict","User input (case & space sensitive) search for POI - then delete"))
     submenu4.add_child(TreeNode("Manual input search - Fuzzy","User input (case & space non-sensitve) search for POI - then delete"))
-    submenu4.add_child(TreeNode("Letter search for POI(s)","User input alphabet letter to return list of POI(s) to select from - then delete"))
     submenu4.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu4)
 
@@ -135,7 +133,7 @@ def build_menu_tree():
     # task 7
     submenu6 = TreeNode("Questions and Answers for Points of Interest","Add and answer questions on Points of Interest (POI)")
     submenu6.add_child(TreeNode("Add question to Point of Interest","User input search for POI, then add question to be answered"))
-    submenu6.add_child(TreeNode("Add answer to Point of Interest","User input search for POI, then add answer to question(s) in order that they were created"))
+    submenu6.add_child(TreeNode("Add answer to Point of Interest","User input search for POI, then add answer to question(s) in order that they were created for that POI"))
     submenu6.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu6)
 
