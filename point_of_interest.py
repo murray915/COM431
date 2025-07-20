@@ -1,13 +1,15 @@
 
 class point_of_interest:
 
-    def __init__(self, poi_id: int, name: str, poi_type: str, desc: str, quest: list):
+    def __init__(self, poi_id: int, name: str, poi_type: str, desc: str, quest: list, location: str, longandlat: list):
         """ Main vars for the poi class """
         self.id = poi_id
         self.name = name
         self.poi_type = poi_type
         self.desc = desc
         self.quest = quest
+        self.location = location
+        self.longandlat = longandlat
 
     def user_ques_ans_update(self, quest: list) -> bool:
         """ Add user quest/ans to self.quest list """        

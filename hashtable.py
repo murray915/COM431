@@ -67,7 +67,6 @@ class Hashmap():
                 if k == key and v == value:
                     del chunk[i]
                     self.size -=1
-                    self.next_index -=1
 
                     return True
                 else:
@@ -78,7 +77,6 @@ class Hashmap():
                 if k == key and v == value:
                     chunk.pop(i)
                     self.size -=1
-                    self.next_index -=1
 
                     return True
             else:
