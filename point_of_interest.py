@@ -23,6 +23,7 @@ class point_of_interest:
 
     def poi_attribute(self, attribute: str):
         """ get poi attribute """
+        """ inputs :: id / name  poi_type, desc, quest, location or all """
 
         if attribute == 'id':
             return self.id
@@ -34,8 +35,12 @@ class point_of_interest:
             return self.desc
         elif attribute == 'quest':
             return self.quest
-        elif attribute == 'all': 
+        elif attribute == 'location':
+            return [self.location, self.longandlat]        
+        elif attribute == 'all_exc_ques_loc':
             return self.id, self.name, self.poi_type, self.desc
+        elif attribute == 'all': 
+            return self.id, self.name, self.poi_type, self.desc, self.quest, self.location, self.longandlat
         
     def update_id(self, new_id: int):
         """ update id based on input """

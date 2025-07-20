@@ -18,7 +18,7 @@ class data_file():
                 with open(fullpath, "rt") as file:
                     df = json.loads(file.readlines()[0])
                     for i in df["data"]:
-                        load_data.append(poi.point_of_interest(i["id"], i["name"], i["poi_type"], i['desc'], i['quest'])) 
+                        load_data.append(poi.point_of_interest(i["id"], i["name"], i["poi_type"], i['desc'], i['quest'],i['location'],i['longandlat'])) 
                
                 return load_data
             

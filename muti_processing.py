@@ -2,6 +2,7 @@ from multiprocessing import Process
 import sorting_algs as sgs
 import demonstration as demo
 import time
+import sys
 
 def run_cpu_tasks_in_parallel(tasks):
     running_tasks = [Process(target=task) for task in tasks]
@@ -34,36 +35,46 @@ def task_3(ori_list: list):
 
     return round((time.time() - start_time),5)
 
+out1 = []
+out2 = []
+out3 = []
+x = []
+y = []
+data_size = 1000
+ori_list = demo.get_data_arr(data_size)
 
+if __name__ == '__main__':
+    sys.setrecursionlimit(10_000)
 
+    for i in range(0,10):
 
-array_size = 1000
-interaction_count = 1
-
-task1_list_x = [] #count of iterations
-task1_list_y = [] #output timestamp
-
-task2_list_x = [] #count of iterations
-task2_list_y = [] #output timestamp
-
-task3_list_x = [] #count of iterations
-task3_list_y = [] #output timestamp
-
-
-for i in range(0, 10):
-
-    ori_list = demo.get_data_arr(array_size)
-
-    if __name__ == '__main__':
         run_cpu_tasks_in_parallel([
-            task1_list_y.append(task_1(ori_list)),
-            task2_list_y.append(task_2(ori_list)),
-            task3_list_y.append(task_3(ori_list))
-        ])
+                out1.append(task_1(ori_list)),
+                out2.append(task_2(ori_list)),
+                out3.append(task_3(ori_list))
+            ])
 
-    interaction_count +=1
-    array_size += 1000    
-    
-    print(array_size)
+        x.append(data_size)
 
-print(f'\n{task1_list_y}\n{task2_list_y}\n{task3_list_y}')
+        data_size += 250
+        ori_list.extend(demo.get_data_arr(data_size))
+
+    #print(out1, out2, out3)
+
+
+    # importing package
+    import matplotlib.pyplot as plt
+
+    bubble_sort = out1
+    merge_sort = out2
+    quick_sort = out3
+
+    plt.plot(x, bubble_sort, label ='bubble_sort')
+    plt.plot(x, merge_sort, '-.', label ='merge_sort')
+    plt.plot(x, quick_sort, '-', label ='quick_sort')
+
+    plt.xlabel("Number of Data points")
+    plt.ylabel("Number of Seconds")
+    plt.legend()
+    plt.title('multiple plots')
+    plt.show()

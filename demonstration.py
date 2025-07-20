@@ -6,11 +6,12 @@ import stack_class as sc
 import menu_tree as mt
 import point_of_interest as poi
 
+
 def get_data_arr(top_range = 15) -> list:
     """ return large random array ; input top random size """
     ori_list = []
     for _ in range(0, rd.randrange(10,top_range)):
-        ori_list.append(rd.randrange(0,10000))
+        ori_list.append(rd.randrange(0,1000))
 
     return ori_list
 
@@ -42,7 +43,7 @@ def demo_sorting_algr(ori_list, print_cons, runset):
         print("  --- Run completed in %s seconds ---" % (time.time() - start_time))
         print("-----------------------------------------------------------------")
 
-def demo_stack_data_type():
+def demo_stack():
     """ demo sorting algr ; input sorting algr name """
     demo_stack = sc.Stack()
 
@@ -60,7 +61,7 @@ def demo_stack_data_type():
     demo_stack.print_queue()
     
 
-def demo_queue_data_type():
+def demo_queue():
     """ demo sorting algr ; input sorting algr name """
     demo_que = qc.Queue(8)
 
@@ -76,7 +77,7 @@ def demo_queue_data_type():
         demo_que.dequeue()
 
     demo_que.print_queue()
-
+    
 def build_product_tree_demo_001():
     root = mt.TreeNode("Electronics","All items within electronics")
 
@@ -136,7 +137,7 @@ def build_product_tree_demo_002():
     return root
 
     
-def demo_menu_tree():
+def demo_muti_branch_tree():
     """ demo tree menu """
     rootnode002 = build_product_tree_demo_002()
     rootnode001 = build_product_tree_demo_001()
@@ -269,8 +270,7 @@ def create_test_pois(poi_hs_table: object, max_test_poi: int) -> object:
         "India","China","Japan","Angola","China","Malaysia","Montenegro","Philippines","Pakistan","India","Japan","Gaza Strip","Algeria","Russia","Angola",
         "Indonesia","Portugal","South Africa","Morocco","Ca te dae Ivoire","Portugal","United States","Belarus","United States","Iraq","Brazil","Korea, South","India","India","Philippines","Turkey","Italy",
         "Nigeria","Vietnam","Pakistan","Haiti","United States","United States","Turkey","South Africa","El Salvador","Guatemala","Colombia",
-        "Iran","Poland","Japan","Benin","India","Mexico",
-        "United States","Oman","Philippines","Argentina","Brazil","Ghana","Colombia","South Sudan","Indonesia","Japan","United States","Canada","China",
+        "Iran","Poland","Japan","Benin","India","Mexico","United States","Oman","Philippines","Argentina","Brazil","Ghana","Colombia","South Sudan","Indonesia","Japan","United States","Canada","China",
         "China","China","Egypt","Russia","China","China","Mexico","Colombia","Russia","Costa Rica","Brazil","India","Lebanon","Indonesia","South Sudan","Turkey","Korea, South","Algeria","United States",
         "Pakistan","Pakistan","United States","Argentina","Russia","Germany","United Kingdom","Japan","Uzbekistan","Iran","Turkey","United States",
         "United States","Netherlands","China","China","Saudi Arabia","China","Germany","Jamaica","Spain","France","Egypt","Philippines","Korea, South","Zambia",
@@ -284,6 +284,10 @@ def create_test_pois(poi_hs_table: object, max_test_poi: int) -> object:
         poi_id = poi_hs_table.get_next_index()
         quest = []
 
+        location_details = rd.randrange(0 ,len(poi_descriptions))
+        long_and_lang = poi_long_lant[location_details]
+        location = poi_locations[location_details]
+    
         for _ in range(1, rd.randrange(2 ,5)):            
             question = poi_questions[rd.randrange(0 ,39)]
             
@@ -296,18 +300,18 @@ def create_test_pois(poi_hs_table: object, max_test_poi: int) -> object:
             quest.append([question,ans])
 
         print(f'Point of Interest added into application: \n\tPOI ID : {poi_id}  \n\tPOI Name : {name} \n\tPOI Description : {desc}')
-        poi_hs_table.put(name,poi.point_of_interest(poi_id, name, var_type, desc, quest))    
+        poi_hs_table.put(name,poi.point_of_interest(poi_id, name, var_type, desc, quest, location, long_and_lang))    
    
     return poi_hs_table
+
 
 #runset = 'quicksort'
 #runset = 'merge_sort'
 #runset = 'bubble_sort'
 #print_cons = True
 #ori_list = get_data_arr()
-
 #demo_sorting_algr(ori_list, print_cons, runset)
 
-#demo_queue_data_type()
-#demo_stack_data_type()
+#demo_queue()
+#demo_stack()
 #demo_menu_tree()

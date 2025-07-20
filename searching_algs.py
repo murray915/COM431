@@ -1,8 +1,8 @@
 import sorting_algs as algs
 import user_inputs as ui
 
-def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_input_sub: str) -> str | object | None:
-    """ input hashtable, user_search_value. Return poi name, poi object and user answer OR None if not found """
+def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_input_sub: str, ask_question: bool) -> str | object | None:
+    """ input hashtable, user_search_value, user_input_sub and ask user question. Return poi name, poi object and user answer OR None if not found """
 
     #general params
     tabulate_data = []
@@ -10,75 +10,109 @@ def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_
     object_list = []
     header_list = ['Point of Interest ID','Point of Interest','Point of Interest Type','Description']
     ans = 'default'
+    count = 0
 
     # get repo of pois & sort
     list_obj = poi_hs_table.search_in_chunks('items')
     outlist_sorted = algs.sort_str_list(list_obj,"ASC",0)
 
-    # user params
-    case_sens, fuzzy_sear = user_search_params(user_input_sub)
-   
-    # search list for value
-    search_list = [i[0] for i in outlist_sorted]
+    print(user_input_sub, user_search_value)
 
-    # Search Algorithms determined by input factors
-        # binary search only selected for non-duplications & no fuzzy search
-        # hashtable search only selected for non-duplications & no fuzzy search & Case sensitiy on
-        # linear search to handle all other, duplications, fuzzy and case insensitve/sensitive
-    if search_list.count(user_search_value) >= 2 or fuzzy_sear == True:
-        search_output  = linear_search(search_list, user_search_value, case_sens, fuzzy_sear)
+    # If search user input is ID only
+    if user_input_sub == "Search by Point of Interest ID":
 
-    elif search_list.count(user_search_value) == 1 and case_sens == True and fuzzy_sear == False:
-        search_output = poi_hs_table.get_value(user_search_value)
-        
-        if search_output:
-            search_output = [search_list.index(search_output.poi_attribute('name'))]
+        for i in outlist_sorted:
+            if str(i[1].poi_attribute('id')) == str(user_search_value):
+                poi_name = i[0]
+                poi_obj = i[1]
 
+                tabulate_data.append(i[1].poi_attribute('all_exc_ques_loc'))
+
+                #print tabulate output to screen
+                print('') 
+                ui.print_data_tabulate(header_list, tabulate_data)
+                print('') 
+
+                return poi_name, poi_obj, ans
+        else:        
+            print(f'\n\nPoint of Interest not found. Please check Point of interest exists\n')
+            return None, None, None
+    
     else:
-        search_output = binary_search(search_list, user_search_value, case_sens)
+        # user params
+        case_sens, fuzzy_sear = user_search_params(user_input_sub)
+    
+        # search list for value
+        search_list = [i[0] for i in outlist_sorted]
 
-    # if not found exit delete
-    if not search_output:
-        print(f'\n\nPoint of Interest not found. Please check Point of interest exists')
-        return None, None, None
+        # Search Algorithms determined by input factors
+            # binary search only selected for non-duplications & no fuzzy search
+            # hashtable search only selected for non-duplications & no fuzzy search & Case sensitiy on
+            # linear search to handle all other, duplications, fuzzy and case insensitve/sensitive
 
-    else:
-        #output data to correct format to print
-        for i, value in enumerate(outlist_sorted):        
-            if i in search_output:
-                tabulate_data.append(value[1].poi_attribute('all'))
-                object_list.append([value[1].poi_attribute('name'), value[1]])
+        for i in search_list:
+            if i == user_search_value or user_search_value in i:
+                count +=1
 
-        #print tabulate output to screen
-        print('') 
-        ui.print_data_tabulate(header_list, tabulate_data)
-        print('') 
+        if count >= 2 or fuzzy_sear == True:
+            search_output  = linear_search(search_list, user_search_value, case_sens, fuzzy_sear)
 
-        # get option list name & desc
-        option_list = [[i[1], i[3]] for i in tabulate_data]
-
-        # user input on update option
-        if len(tabulate_data) == 1: 
-            input_check = False
-
-            while input_check:
-                ans = input(f'\n Select point of interest : {option_list[0][0]}, {option_list[0][1]}? Yes/No: ')
-
-                if ans.lower() not in ['yes','no']:
-                    print('Please input "Yes" or "No"')
-                else:
-                    input_check = True
-
-            poi_name = object_list[0][0]
-            poi_obj = object_list[0][1]
+        elif count == 1 and case_sens == True and fuzzy_sear == False:
+            search_output = poi_hs_table.get_value(user_search_value)
+            
+            if search_output:
+                search_output = [search_list.index(search_output.poi_attribute('name'))]
 
         else:
-            option_list.append(['Exit','Leave operation, back to main menu'])
-            list_poi_index = int(ui.display_options(option_list, 'Select Point of Interest from List','point of interest',True)) -1
-            
-            if list_poi_index <= len(object_list):
-                poi_name = object_list[list_poi_index][0]
-                poi_obj = object_list[list_poi_index][1]
+            search_output = binary_search(search_list, user_search_value, case_sens)
+
+        # if not found exit delete
+        if search_output is None:
+            print(f'\n\nPoint of Interest not found. Please check Point of interest exists\n')
+            return None, None, None
+
+        else:
+            #output data to correct format to print
+            for i, value in enumerate(outlist_sorted):        
+                if i in search_output:
+                    tabulate_data.append(value[1].poi_attribute('all_exc_ques_loc'))
+                    object_list.append([value[1].poi_attribute('name'), value[1]])
+
+            #print tabulate output to screen
+            print('') 
+            ui.print_data_tabulate(header_list, tabulate_data)
+            print('') 
+
+            # get option list name & desc
+            option_list = [[i[1], i[3]] for i in tabulate_data]
+
+            # user input on update option
+            if len(tabulate_data) == 1:
+                
+                # ask user to select value & return val
+                if ask_question:
+                    input_check = True
+                else:
+                    input_check = False
+
+                while input_check:
+                    ans = input(f'\n Select point of interest : {option_list[0][0]}, {option_list[0][1]}? Yes/No: ')
+
+                    if ans.lower() not in ['yes','no']:
+                        print('Please input "Yes" or "No"')
+                    else:
+                        input_check = False
+
+                poi_name = object_list[0][0]
+                poi_obj = object_list[0][1]
+
+            else:
+                option_list.append(['Exit','Leave operation, back to main menu'])
+                list_poi_index = int(ui.display_options(option_list, 'Select Point of Interest from List','point of interest',True)) -1
+                
+                if list_poi_index <= len(object_list):
+                    poi_name = object_list[list_poi_index][0]
+                    poi_obj = object_list[list_poi_index][1]
 
     return poi_name, poi_obj, ans
 
@@ -101,7 +135,7 @@ def user_search_params(user_input_sub: str) -> str:
         else:
             print('Please either input "yes", or "no"')
 
-    if user_input_sub in ["Manual input search - Fuzzy",'Fuzzy']:
+    if 'Fuzzy' in user_input_sub:
         fuzzy_sear = True
     else:
         fuzzy_sear = False

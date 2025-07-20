@@ -56,6 +56,7 @@ class TreeNode:
         for i in self.children:
 
             if lvl2 is None:
+                print(i.data,i.desc)
                 output_list.append([i.data,i.desc])
 
             # level 2 depth
@@ -97,16 +98,17 @@ def build_menu_tree():
     # depth 2 menu option
     # task 2 & 4
     submenu2 = TreeNode("Search for Point of Interests","Search for existing Points of Interest (POI) in applicaiton")
-    submenu2.add_child(TreeNode("Manual input search - Strict","User input (case sensitive optional, fuzzy search off) search for POI"))
-    submenu2.add_child(TreeNode("Manual input search - Fuzzy","User input (case & space non-sensitve, fuzzy search on) search for POI"))
+    submenu2.add_child(TreeNode("Manual input search - Strict by name","User input (case sensitive optional, fuzzy search off) search for POI"))
+    submenu2.add_child(TreeNode("Manual input search - Fuzzy by name","User input (case & space non-sensitve, fuzzy search on) search for POI"))
+    submenu2.add_child(TreeNode("Search by Point of Interest ID","User input (number input) search for POI by ID"))
     submenu2.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu2)
 
      # depth 2 menu option
      # task 3
     submenu3 = TreeNode("Display all Points of Interest","Display all Points of Interest (POIs) - ASC or DESC")
-    submenu3.add_child(TreeNode("Display POIs by descending order","-"))
     submenu3.add_child(TreeNode("Display POIs by ascending order","-"))
+    submenu3.add_child(TreeNode("Display POIs by descending order","-"))
     submenu3.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu3)   
 
@@ -154,12 +156,28 @@ def build_menu_tree():
     # depth 2 menu option
     # additional functionality - demo runs
     submenu9 = TreeNode("Demonstration of Data Structures and Algorithms","Outputs of Data Structures & Algorithms implemented within program. All output data is example non-POI")
-    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
-    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
-    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
-    submenu9.add_child(TreeNode("UNKNOWN","n/a"))
+
+    # depth 3 menu option
+    # demo runs - Sorting algorithms
+    submenu_algs = TreeNode("Sorting algorithms","Run example data through all implemented sorting algorithms")
+    submenu_algs.add_child(TreeNode("Bubble Sort","Run example data through Bubble Sort algorithm, printing process steps")) 
+    submenu_algs.add_child(TreeNode("Merge sort","Run example data through Merge sort Sort algorithm, printing process steps"))
+    submenu_algs.add_child(TreeNode("Quicksort","Run example data through Quicksort Sort algorithm, printing process steps"))    
+    submenu_algs.add_child(TreeNode("Return","Return to Main Menu"))
+    submenu9.add_child(submenu_algs)
+
+    # depth 3 menu option
+    # demo runs - Sorting algorithms
+    submenu_data_stc = TreeNode("Data Structures","Run example data through data all implemented structures")
+    submenu_data_stc.add_child(TreeNode("Queue","Run example data through Queue data strucutre, printing process steps")) 
+    submenu_data_stc.add_child(TreeNode("Stack","Run example data through Queue data strucutre, printing process steps"))
+    submenu_data_stc.add_child(TreeNode("Muti branch Tree","Run example data through Queue data strucutre, printing process steps"))
+    submenu_data_stc.add_child(TreeNode("Return","Return to Main Menu"))
+    submenu9.add_child(submenu_data_stc)
+
     submenu9.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu9)
+
 
     submenu10 = TreeNode("Exit","Exit program")
     root.add_child(submenu10)
