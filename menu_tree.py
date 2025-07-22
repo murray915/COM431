@@ -117,6 +117,7 @@ def build_menu_tree():
     submenu4 = TreeNode("Delete Point of Interest","Search for existing Points of Interest (POI) in applicaiton to delete")
     submenu4.add_child(TreeNode("Manual input search - Strict","User input (case & space sensitive) search for POI - then delete"))
     submenu4.add_child(TreeNode("Manual input search - Fuzzy","User input (case & space non-sensitve) search for POI - then delete"))
+    submenu4.add_child(TreeNode("Search by Point of Interest ID","User input (number input) search for POI by ID"))
     submenu4.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu4)
 
@@ -141,8 +142,9 @@ def build_menu_tree():
 
     # depth 2 menu option
     # task 8
-    submenu7 = TreeNode("Router from Public transport to Point of Interest","Input user Point of Interest (POI), and respective public transport")
-    submenu7.add_child(TreeNode("UNKNOWN","n/a"))
+    submenu7 = TreeNode("Router from Point of Interest to Point of Interest","Input user Point of Interest (POI) for Cariff Data, and input for destination location and all locations required to go to on the way")
+    submenu7.add_child(TreeNode("View Full Cardiff Points of Interest List","Display the full points of interests for Cardiff to travel between"))
+    submenu7.add_child(TreeNode("Travel between Points of Interest","Input user Point of Interest (POI) for Cariff Data, FROM and TO. Return the distance and locations between"))
     submenu7.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu7)
 
@@ -183,3 +185,10 @@ def build_menu_tree():
     root.add_child(submenu10)
 
     return root
+
+
+
+import multiprocessing as mlt
+
+mlt.__name__
+

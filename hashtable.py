@@ -9,7 +9,10 @@ class Hashmap():
     def __len__(self):
         return self.size
 
-    def get_next_index(self):
+    def get_next_index(self):   
+        return self.next_index +1
+
+    def get_next_index_rest(self):   
         return self.next_index +1
     
     def __contains__(self, key) -> bool | int:

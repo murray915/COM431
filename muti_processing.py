@@ -15,15 +15,11 @@ def task_1(ori_list: list):
     start_time = time.time()
     output = sgs.bubble_sort(ori_list)
 
-    #print("--- Bubble sort completed :: %s seconds ---" % (time.time() - start_time))
-
     return round((time.time() - start_time),5)
 
 def task_2(ori_list: list):
     start_time = time.time()
     output = sgs.merge_sort(ori_list)
-
-    #print("--- Merge sort completed :: %s seconds ---" % (time.time() - start_time))
 
     return round((time.time() - start_time),5)
 
@@ -31,19 +27,18 @@ def task_3(ori_list: list):
     start_time = time.time()
     output = sgs.quicksort(ori_list, 0, len(ori_list) -1)
 
-    #print("--- Quicksort sort completed :: %s seconds ---" % (time.time() - start_time))
-
     return round((time.time() - start_time),5)
 
-out1 = []
-out2 = []
-out3 = []
-x = []
-y = []
-data_size = 1000
-ori_list = demo.get_data_arr(data_size)
 
 if __name__ == '__main__':
+    out1 = []
+    out2 = []
+    out3 = []
+    x = []
+    y = []
+    data_size = 1000
+    ori_list = demo.get_data_arr(data_size)
+
     sys.setrecursionlimit(10_000)
 
     for i in range(0,10):
@@ -58,9 +53,6 @@ if __name__ == '__main__':
 
         data_size += 250
         ori_list.extend(demo.get_data_arr(data_size))
-
-    #print(out1, out2, out3)
-
 
     # importing package
     import matplotlib.pyplot as plt

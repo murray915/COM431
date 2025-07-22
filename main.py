@@ -1,5 +1,4 @@
 import graphics as ghp
-import demonstration as demo
 import menu_tree as mt
 import user_inputs as ui
 import hashtable as hs
@@ -13,9 +12,6 @@ def main():
 
     exit = True
     poi_hs_table = hs.Hashmap(100)
-
-    # get test data
-    #poi_hs_table = demo.create_test_pois(poi_hs_table, 150)
 
     while exit:
         user_input_main = ui.display_options(main_menu, 'Main Menu','menu option')

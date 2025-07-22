@@ -5,7 +5,7 @@ import sorting_algs as algs
 import searching_algs as sralgs
 import queue_class as qc
 import demonstration as demo
-
+import routing as rout
 import os
 from tabulate import tabulate
 
@@ -182,8 +182,14 @@ def mn_func_Delete_Point_of_Interest(treenode: object, poi_hs_table: object, use
     """ delete point of interest from user input """
     
     ans = 'default'
-    user_search_value = input('Please input the name of the Point of Interest to get data for : ')
-    poi_name, poi_obj, ans = sralgs.search_algs_select(poi_hs_table, user_search_value, user_input_sub, True)
+
+    # user params
+    if user_input_sub == "Search by Point of Interest ID":
+        user_input = input('Please input the POI ID for the Point of Interest to get data for : ').strip()
+    else:
+        user_input = input('Please input the name of the Point of Interest to get data for : ').strip()
+        
+    poi_name, poi_obj, ans = sralgs.search_algs_select(poi_hs_table, user_input, user_input_sub, True)
     
     # user input, delete poi?
     if poi_name != None:
@@ -206,7 +212,7 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
     if user_input_sub == "Save to automatic location":
         
         # get filename
-        filename = input('Please input what the save file name should be (file extention is added automatically): ')
+        filename = input('Please input what the save file name should be (file extention is added automatically): ').replace(' ', '_').lower()
         filepath = filepath+filename+'.json'
 
         try:
@@ -221,7 +227,7 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
     elif user_input_sub == "Save to user input location":
         
         # get filename & path
-        filename = input('Please input what the save file name should be (file extention is added automatically): ')
+        filename = input('Please input what the save file name should be (file extention is added automatically): ').replace(' ', '_').lower()
         filepath = input('Please input the folderpath for the save file to be saved to (expected input format : "S:/Users/EMurray/OneDrive/Documents/Uni") : ')
         filepath = filepath+"/"+filename+'.json'
         
@@ -237,11 +243,11 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
     elif user_input_sub == "Load data from existing file - user selection":
         
         # get filename & path
-        filepath = input('Please input the folderpath for the file to be loaded from to (expected input format : "S:/Users/EMurray/OneDrive/Documents/Uni") : ')
+        fullpath = input('Please input the fullpath for the file to be loaded from to (expected input format : "S:/Users/EMurray/OneDrive/Documents/Uni/value.json") : ')
 
         # load file if exists        
-        try:
-            filepath = filepath+"/"+filename+'.json'
+        try:            
+            filepath = fullpath
             output_list = active_file.load_data_from_file(filepath)
             
             for i in output_list:
@@ -351,6 +357,36 @@ def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object
     print('')
 
     return poi_hs_table
+
+def mn_func_Router_from_Point_of_Interest_to_Point_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
+    """ from user option to view menu descriptions """
+
+    if user_input_sub == "View Full Cardiff Points of Interest List":
+        pass
+
+    else:
+        point_of_interest_list = [
+                [ "Cardiff Castle",""],[ "Animal Wall",""],[ "St John the Baptist Church",""],[ "City Hall",""],[ "Pierhead Building",""],
+                [ "St Davids Hall",""],[ "Ianto's Shrine",""],[ "Wales Millennium Centre",""],[ "Norwegian Church Arts Centre",""],[ "Principality Stadium",""],[ "Cardiff City Stadium",""],
+                [ "Cardiff Bay Yacht Club",""],[ "Techniquest (Science Centre)",""],[ "Principality Stadium Tours",""],[ "National Museum Cardiff",""],[ "St Fagans Castle",""],[ "Castell Coch",""],[ "Caerphilly Castle",""],[ "Llandaff Cathedral",""],
+                [ "St Davids Metropolitan Cathedral",""],[ "Bute Park",""],[ "Roath Park",""],[ "Victoria Park",""],[ "Cefn Onn Park",""],[ "Cardiff Bay Wetlands Reserve",""],[ "Cardiff Bay Barrage",""],[ "Wales National War Memorial",""],[ "Crowd Building (Old)",""],
+                [ "St. Lythans Burial Chamber",""],[ "Tinkinswood Burial Chamber",""],[ "Nantgarw China Works & Museum",""],[ "Tommy Cooper Statue",""],[ "Old Bishops Palace",""],[ "Insole Court",""],[ "Barry Castle",""]
+        ]
+
+        # request sub menu option
+        print(f'\n\nTwo selection to follow, first is the Starting point of interest, and the second being the destination point of interest\n\n')
+
+        user_input_1 = display_options(point_of_interest_list, 'Points of Interest Selection (Start From)', 'point of interest option')
+        user_input_2 = display_options(point_of_interest_list, 'Points of Interest Selection (Travel To)', 'point of interest option')
+
+        cleaned_user_input_to = user_input_1.replace(' ','_').replace('(','').replace(')','').replace('.','').replace('&','')
+        cleaned_user_input_from = user_input_2.replace(' ','_').replace('(','').replace(')','').replace('.','').replace('&','')
+
+        print(cleaned_user_input_from, cleaned_user_input_to)
+
+        rout.run_dijkstra(poi_hs_table, cleaned_user_input_from, cleaned_user_input_to)
+
+    return poi_hs_table    
 
 def mn_func_Demonstration_of_Data_Structures_and_Algorithms(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to view menu descriptions """

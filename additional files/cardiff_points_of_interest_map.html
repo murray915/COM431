@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_a4c046f400a571e4f88ffed39a45e1df {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_a4c046f400a571e4f88ffed39a45e1df" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_a4c046f400a571e4f88ffed39a45e1df = L.map(
+                "map_a4c046f400a571e4f88ffed39a45e1df",
+                {
+                    center: [51.48, -3.18],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_3b3dd269097dc7eaf0bdc6543b410086 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_3b3dd269097dc7eaf0bdc6543b410086.addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+            var marker_be78a4ab7246aa01cdf71d48d6cb2647 = L.marker(
+                [51.482208, -3.181301],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_1510fc839dd7c9324675a2e784bfeffd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d74cc063a9e775e963af56f8a62d9d60 = $(`<div id="html_d74cc063a9e775e963af56f8a62d9d60" style="width: 100.0%; height: 100.0%;">Cardiff Castle</div>`)[0];
+                popup_1510fc839dd7c9324675a2e784bfeffd.setContent(html_d74cc063a9e775e963af56f8a62d9d60);
+            
+        
+
+        marker_be78a4ab7246aa01cdf71d48d6cb2647.bindPopup(popup_1510fc839dd7c9324675a2e784bfeffd)
+        ;
+
+        
+    
+    
+            var marker_9f725967e8ee8b5265f13e3b1c49933c = L.marker(
+                [51.4825, -3.182],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_2f6171088585e384df61ad6741bf6474 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3dda1202bd9797eb9adabd0e82980b39 = $(`<div id="html_3dda1202bd9797eb9adabd0e82980b39" style="width: 100.0%; height: 100.0%;">Animal Wall</div>`)[0];
+                popup_2f6171088585e384df61ad6741bf6474.setContent(html_3dda1202bd9797eb9adabd0e82980b39);
+            
+        
+
+        marker_9f725967e8ee8b5265f13e3b1c49933c.bindPopup(popup_2f6171088585e384df61ad6741bf6474)
+        ;
+
+        
+    
+    
+            var marker_593c95e5115f2fea7758ddaec8ac6bb7 = L.marker(
+                [51.482, -3.1815],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_c083216df50b7d914baaa13e273860a6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_990988a9746410b9e0290354662237b1 = $(`<div id="html_990988a9746410b9e0290354662237b1" style="width: 100.0%; height: 100.0%;">St John the Baptist Church</div>`)[0];
+                popup_c083216df50b7d914baaa13e273860a6.setContent(html_990988a9746410b9e0290354662237b1);
+            
+        
+
+        marker_593c95e5115f2fea7758ddaec8ac6bb7.bindPopup(popup_c083216df50b7d914baaa13e273860a6)
+        ;
+
+        
+    
+    
+            var marker_b38c2b36c17a09beef89b0000f299e45 = L.marker(
+                [51.481, -3.179],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_1b7ab96bc2a9a488e0c39bba46f86987 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ccb22d72063240c0d9fc13410194c569 = $(`<div id="html_ccb22d72063240c0d9fc13410194c569" style="width: 100.0%; height: 100.0%;">City Hall</div>`)[0];
+                popup_1b7ab96bc2a9a488e0c39bba46f86987.setContent(html_ccb22d72063240c0d9fc13410194c569);
+            
+        
+
+        marker_b38c2b36c17a09beef89b0000f299e45.bindPopup(popup_1b7ab96bc2a9a488e0c39bba46f86987)
+        ;
+
+        
+    
+    
+            var marker_9735142f991c1a7dcbf8a89ab1530c03 = L.marker(
+                [51.468, -3.168],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_64ce541bb6928c59d024651e24bfee65 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2a3cf4e8903562da94bd30c1f6c7376a = $(`<div id="html_2a3cf4e8903562da94bd30c1f6c7376a" style="width: 100.0%; height: 100.0%;">Pierhead Building</div>`)[0];
+                popup_64ce541bb6928c59d024651e24bfee65.setContent(html_2a3cf4e8903562da94bd30c1f6c7376a);
+            
+        
+
+        marker_9735142f991c1a7dcbf8a89ab1530c03.bindPopup(popup_64ce541bb6928c59d024651e24bfee65)
+        ;
+
+        
+    
+    
+            var marker_58117aa0322157cde1d6a204d59e84ff = L.marker(
+                [51.4807, -3.178],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_3d950d743cebbd17ae2168099b4bf467 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_76361f35bc31ed0ee96ca2e9de3f59f9 = $(`<div id="html_76361f35bc31ed0ee96ca2e9de3f59f9" style="width: 100.0%; height: 100.0%;">St Davids Hall</div>`)[0];
+                popup_3d950d743cebbd17ae2168099b4bf467.setContent(html_76361f35bc31ed0ee96ca2e9de3f59f9);
+            
+        
+
+        marker_58117aa0322157cde1d6a204d59e84ff.bindPopup(popup_3d950d743cebbd17ae2168099b4bf467)
+        ;
+
+        
+    
+    
+            var marker_61fc556622be0d84c606a133e86f93fc = L.marker(
+                [51.4795, -3.176],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_7f012a37cbb8e0eea39bc9b67fe43090 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a82d70888a9d5d88927d82c924082b65 = $(`<div id="html_a82d70888a9d5d88927d82c924082b65" style="width: 100.0%; height: 100.0%;">Iantos Shrine</div>`)[0];
+                popup_7f012a37cbb8e0eea39bc9b67fe43090.setContent(html_a82d70888a9d5d88927d82c924082b65);
+            
+        
+
+        marker_61fc556622be0d84c606a133e86f93fc.bindPopup(popup_7f012a37cbb8e0eea39bc9b67fe43090)
+        ;
+
+        
+    
+    
+            var marker_ad290163fb0f1819b4e444879b8be3e8 = L.marker(
+                [51.48, -3.176],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_19adfd3ad55c6c9c38d18bdce945babf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_93bfb9baaeffc99bb957acbcd99357b5 = $(`<div id="html_93bfb9baaeffc99bb957acbcd99357b5" style="width: 100.0%; height: 100.0%;">Cardiff Central Library</div>`)[0];
+                popup_19adfd3ad55c6c9c38d18bdce945babf.setContent(html_93bfb9baaeffc99bb957acbcd99357b5);
+            
+        
+
+        marker_ad290163fb0f1819b4e444879b8be3e8.bindPopup(popup_19adfd3ad55c6c9c38d18bdce945babf)
+        ;
+
+        
+    
+    
+            var marker_fdd3eb82abf8d726ce411480ec25855d = L.marker(
+                [51.4686, -3.1727],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_77ee4216aaa5158d7bc655cb5c963437 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_86f909e0dd19b6e914cd7ac1c2a23338 = $(`<div id="html_86f909e0dd19b6e914cd7ac1c2a23338" style="width: 100.0%; height: 100.0%;">Wales Millennium Centre</div>`)[0];
+                popup_77ee4216aaa5158d7bc655cb5c963437.setContent(html_86f909e0dd19b6e914cd7ac1c2a23338);
+            
+        
+
+        marker_fdd3eb82abf8d726ce411480ec25855d.bindPopup(popup_77ee4216aaa5158d7bc655cb5c963437)
+        ;
+
+        
+    
+    
+            var marker_ab361e8ce4dad32ef128631b44bdefd4 = L.marker(
+                [51.4678, -3.1688],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_7214024e888fd5e14335a8b5d43e0457 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_39513498d46baef7181ff6d925d5c726 = $(`<div id="html_39513498d46baef7181ff6d925d5c726" style="width: 100.0%; height: 100.0%;">Norwegian Church Arts Centre</div>`)[0];
+                popup_7214024e888fd5e14335a8b5d43e0457.setContent(html_39513498d46baef7181ff6d925d5c726);
+            
+        
+
+        marker_ab361e8ce4dad32ef128631b44bdefd4.bindPopup(popup_7214024e888fd5e14335a8b5d43e0457)
+        ;
+
+        
+    
+    
+            var marker_d0823c76dc5469d4a7f6a4c4100c4a3d = L.marker(
+                [51.478146, -3.183414],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_9bafe8507ca3cc401289a61daa08a51d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1b54a7eaab678302d9eb9e8ed077dac0 = $(`<div id="html_1b54a7eaab678302d9eb9e8ed077dac0" style="width: 100.0%; height: 100.0%;">Principality Stadium</div>`)[0];
+                popup_9bafe8507ca3cc401289a61daa08a51d.setContent(html_1b54a7eaab678302d9eb9e8ed077dac0);
+            
+        
+
+        marker_d0823c76dc5469d4a7f6a4c4100c4a3d.bindPopup(popup_9bafe8507ca3cc401289a61daa08a51d)
+        ;
+
+        
+    
+    
+            var marker_bf43094ef66b326af8ec1ed2afaab187 = L.marker(
+                [51.4845, -3.182],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_3d171304d827c7f26b81f0f0683b8634 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f9316275b7e9bbff0f623814f3c76c30 = $(`<div id="html_f9316275b7e9bbff0f623814f3c76c30" style="width: 100.0%; height: 100.0%;">Cardiff City Stadium</div>`)[0];
+                popup_3d171304d827c7f26b81f0f0683b8634.setContent(html_f9316275b7e9bbff0f623814f3c76c30);
+            
+        
+
+        marker_bf43094ef66b326af8ec1ed2afaab187.bindPopup(popup_3d171304d827c7f26b81f0f0683b8634)
+        ;
+
+        
+    
+    
+            var marker_08c64006d633cc2a6030f4ac32b2f26b = L.marker(
+                [51.448265, -3.175035],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_88969b0c5584f2794ba97217554a4d69 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b8802bd7aeae5eb8deffa278c28dfe4e = $(`<div id="html_b8802bd7aeae5eb8deffa278c28dfe4e" style="width: 100.0%; height: 100.0%;">Cardiff Bay Yacht Club</div>`)[0];
+                popup_88969b0c5584f2794ba97217554a4d69.setContent(html_b8802bd7aeae5eb8deffa278c28dfe4e);
+            
+        
+
+        marker_08c64006d633cc2a6030f4ac32b2f26b.bindPopup(popup_88969b0c5584f2794ba97217554a4d69)
+        ;
+
+        
+    
+    
+            var marker_dcc43e39e1c56b6e41dd7ea24168d012 = L.marker(
+                [51.467, -3.172],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_fea8c776d6f00d2d47cda17cc826ac9e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ba1c3bd505a39bf92b7b368e3de7d5fa = $(`<div id="html_ba1c3bd505a39bf92b7b368e3de7d5fa" style="width: 100.0%; height: 100.0%;">Techniquest (Science Centre)</div>`)[0];
+                popup_fea8c776d6f00d2d47cda17cc826ac9e.setContent(html_ba1c3bd505a39bf92b7b368e3de7d5fa);
+            
+        
+
+        marker_dcc43e39e1c56b6e41dd7ea24168d012.bindPopup(popup_fea8c776d6f00d2d47cda17cc826ac9e)
+        ;
+
+        
+    
+    
+            var marker_158b3256c89de1df4b801034712f83ba = L.marker(
+                [51.478146, -3.183414],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_fa21fae6a201b87bbdfb9f304faed6d6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_48a05be30240d2aca458752bd759a7ac = $(`<div id="html_48a05be30240d2aca458752bd759a7ac" style="width: 100.0%; height: 100.0%;">Principality Stadium Tours</div>`)[0];
+                popup_fa21fae6a201b87bbdfb9f304faed6d6.setContent(html_48a05be30240d2aca458752bd759a7ac);
+            
+        
+
+        marker_158b3256c89de1df4b801034712f83ba.bindPopup(popup_fa21fae6a201b87bbdfb9f304faed6d6)
+        ;
+
+        
+    
+    
+            var marker_46d9834a3108e92f5765821f459b077d = L.marker(
+                [51.487, -3.178],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_223680d54a10fbf62bedddb3bff69c63 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5379b6e4318492b234ba231cb7686bc9 = $(`<div id="html_5379b6e4318492b234ba231cb7686bc9" style="width: 100.0%; height: 100.0%;">National Museum Cardiff</div>`)[0];
+                popup_223680d54a10fbf62bedddb3bff69c63.setContent(html_5379b6e4318492b234ba231cb7686bc9);
+            
+        
+
+        marker_46d9834a3108e92f5765821f459b077d.bindPopup(popup_223680d54a10fbf62bedddb3bff69c63)
+        ;
+
+        
+    
+    
+            var marker_4b0eb390fddea8d5b17a614369e6c5ea = L.marker(
+                [51.48, -3.176],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_df2a0ba62b3483548a3a267cc506b05e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_81935f34b99bc036294717cca3dbab50 = $(`<div id="html_81935f34b99bc036294717cca3dbab50" style="width: 100.0%; height: 100.0%;">Museum of Cardiff</div>`)[0];
+                popup_df2a0ba62b3483548a3a267cc506b05e.setContent(html_81935f34b99bc036294717cca3dbab50);
+            
+        
+
+        marker_4b0eb390fddea8d5b17a614369e6c5ea.bindPopup(popup_df2a0ba62b3483548a3a267cc506b05e)
+        ;
+
+        
+    
+    
+            var marker_cf87d114b95e5c02ba501ef55865ace1 = L.marker(
+                [51.4694, -3.2338],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_46a085e1deed19e081ad90e2af875602 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2d1aad9cc25527ad5759b90f911bd490 = $(`<div id="html_2d1aad9cc25527ad5759b90f911bd490" style="width: 100.0%; height: 100.0%;">St Fagans National Museum of History</div>`)[0];
+                popup_46a085e1deed19e081ad90e2af875602.setContent(html_2d1aad9cc25527ad5759b90f911bd490);
+            
+        
+
+        marker_cf87d114b95e5c02ba501ef55865ace1.bindPopup(popup_46a085e1deed19e081ad90e2af875602)
+        ;
+
+        
+    
+    
+            var marker_56e5441a60c81e73bd1ec488cda29748 = L.marker(
+                [51.4694, -3.2338],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_f149097b2d29d53854613e45ef46a98f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2055571254933a6f9d51de02bac08df1 = $(`<div id="html_2055571254933a6f9d51de02bac08df1" style="width: 100.0%; height: 100.0%;">St Fagans Castle</div>`)[0];
+                popup_f149097b2d29d53854613e45ef46a98f.setContent(html_2055571254933a6f9d51de02bac08df1);
+            
+        
+
+        marker_56e5441a60c81e73bd1ec488cda29748.bindPopup(popup_f149097b2d29d53854613e45ef46a98f)
+        ;
+
+        
+    
+    
+            var marker_f4cdd31d33bf315555a6200e3983bad2 = L.marker(
+                [51.519, -3.296],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_902c0050dbbf0933d8a76b8ec26f1000 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3bb81d68a80020804734e110d48feb4b = $(`<div id="html_3bb81d68a80020804734e110d48feb4b" style="width: 100.0%; height: 100.0%;">Castell Coch</div>`)[0];
+                popup_902c0050dbbf0933d8a76b8ec26f1000.setContent(html_3bb81d68a80020804734e110d48feb4b);
+            
+        
+
+        marker_f4cdd31d33bf315555a6200e3983bad2.bindPopup(popup_902c0050dbbf0933d8a76b8ec26f1000)
+        ;
+
+        
+    
+    
+            var marker_1b951a6ae9794748c4de5437d24812d2 = L.marker(
+                [51.579, -3.222],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_a4d7a4d01b9d0950717adac7d7257e98 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9046ea04f392607adf1211d01c81b259 = $(`<div id="html_9046ea04f392607adf1211d01c81b259" style="width: 100.0%; height: 100.0%;">Caerphilly Castle</div>`)[0];
+                popup_a4d7a4d01b9d0950717adac7d7257e98.setContent(html_9046ea04f392607adf1211d01c81b259);
+            
+        
+
+        marker_1b951a6ae9794748c4de5437d24812d2.bindPopup(popup_a4d7a4d01b9d0950717adac7d7257e98)
+        ;
+
+        
+    
+    
+            var marker_0bbb4a6748339fc08962c3636c489330 = L.marker(
+                [51.4905, -3.219],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_6498a95b48b0d406badc3a3a7cd7ef9b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_698a43c66f16fc801568d2ff45911eb0 = $(`<div id="html_698a43c66f16fc801568d2ff45911eb0" style="width: 100.0%; height: 100.0%;">Llandaff Cathedral</div>`)[0];
+                popup_6498a95b48b0d406badc3a3a7cd7ef9b.setContent(html_698a43c66f16fc801568d2ff45911eb0);
+            
+        
+
+        marker_0bbb4a6748339fc08962c3636c489330.bindPopup(popup_6498a95b48b0d406badc3a3a7cd7ef9b)
+        ;
+
+        
+    
+    
+            var marker_04cdc80ac5a88bc2af8a6b8acb05efe2 = L.marker(
+                [51.4785, -3.1735],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_7069382cc12d0ad9e54bd17f07c8d211 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_10148b72b18017cc4730c369b35b6bf7 = $(`<div id="html_10148b72b18017cc4730c369b35b6bf7" style="width: 100.0%; height: 100.0%;">St Davids Metropolitan Cathedral</div>`)[0];
+                popup_7069382cc12d0ad9e54bd17f07c8d211.setContent(html_10148b72b18017cc4730c369b35b6bf7);
+            
+        
+
+        marker_04cdc80ac5a88bc2af8a6b8acb05efe2.bindPopup(popup_7069382cc12d0ad9e54bd17f07c8d211)
+        ;
+
+        
+    
+    
+            var marker_ac29312d21f71d57be1d1be888eb1c31 = L.marker(
+                [51.4815, -3.18],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_906f7bba371e8cb964e40ac494663c1f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d8a9abbb469ce321f20911f51cdb5140 = $(`<div id="html_d8a9abbb469ce321f20911f51cdb5140" style="width: 100.0%; height: 100.0%;">Bute Park</div>`)[0];
+                popup_906f7bba371e8cb964e40ac494663c1f.setContent(html_d8a9abbb469ce321f20911f51cdb5140);
+            
+        
+
+        marker_ac29312d21f71d57be1d1be888eb1c31.bindPopup(popup_906f7bba371e8cb964e40ac494663c1f)
+        ;
+
+        
+    
+    
+            var marker_1cd6c5ffab2b3d3dbebcb5a8d044b437 = L.marker(
+                [51.507, -3.154],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_63e4f8387223741cb1b3d27dc43e8e7d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_28469a82ddd0a2affa89f1bb499b22fc = $(`<div id="html_28469a82ddd0a2affa89f1bb499b22fc" style="width: 100.0%; height: 100.0%;">Roath Park</div>`)[0];
+                popup_63e4f8387223741cb1b3d27dc43e8e7d.setContent(html_28469a82ddd0a2affa89f1bb499b22fc);
+            
+        
+
+        marker_1cd6c5ffab2b3d3dbebcb5a8d044b437.bindPopup(popup_63e4f8387223741cb1b3d27dc43e8e7d)
+        ;
+
+        
+    
+    
+            var marker_1b8c3972cf2579974ecceeebe997494f = L.marker(
+                [51.4825, -3.205],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_dada0631b9866902b688ec2586740281 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ccbddfe1cf024b5dc590d0c85c2e4e43 = $(`<div id="html_ccbddfe1cf024b5dc590d0c85c2e4e43" style="width: 100.0%; height: 100.0%;">Victoria Park</div>`)[0];
+                popup_dada0631b9866902b688ec2586740281.setContent(html_ccbddfe1cf024b5dc590d0c85c2e4e43);
+            
+        
+
+        marker_1b8c3972cf2579974ecceeebe997494f.bindPopup(popup_dada0631b9866902b688ec2586740281)
+        ;
+
+        
+    
+    
+            var marker_23fcb33dd1ae23748625f9bd67b944d3 = L.marker(
+                [51.536, -3.166],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_3dda8fa1ed2bdfe96ea9392fb88c7515 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_799363ba71f0fa6b564bed176a33df06 = $(`<div id="html_799363ba71f0fa6b564bed176a33df06" style="width: 100.0%; height: 100.0%;">Cefn Onn Park</div>`)[0];
+                popup_3dda8fa1ed2bdfe96ea9392fb88c7515.setContent(html_799363ba71f0fa6b564bed176a33df06);
+            
+        
+
+        marker_23fcb33dd1ae23748625f9bd67b944d3.bindPopup(popup_3dda8fa1ed2bdfe96ea9392fb88c7515)
+        ;
+
+        
+    
+    
+            var marker_da0a5b144b9e4760fb888ca2159b768a = L.marker(
+                [51.454, -3.166],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_ea5f2619ca0170da268fb06501a83c8a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cf0fa7c24bf7f46d518a5320f7bcfb10 = $(`<div id="html_cf0fa7c24bf7f46d518a5320f7bcfb10" style="width: 100.0%; height: 100.0%;">Cardiff Bay Wetlands Reserve</div>`)[0];
+                popup_ea5f2619ca0170da268fb06501a83c8a.setContent(html_cf0fa7c24bf7f46d518a5320f7bcfb10);
+            
+        
+
+        marker_da0a5b144b9e4760fb888ca2159b768a.bindPopup(popup_ea5f2619ca0170da268fb06501a83c8a)
+        ;
+
+        
+    
+    
+            var marker_4ed9b3c8766fafe2c06a5b4f2dec0df7 = L.marker(
+                [51.464, -3.167],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_208501d8b23447bd5dfacb4f5f6a5dc8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9366cfe7cb30614352d97e57ff83e994 = $(`<div id="html_9366cfe7cb30614352d97e57ff83e994" style="width: 100.0%; height: 100.0%;">Cardiff Bay Barrage</div>`)[0];
+                popup_208501d8b23447bd5dfacb4f5f6a5dc8.setContent(html_9366cfe7cb30614352d97e57ff83e994);
+            
+        
+
+        marker_4ed9b3c8766fafe2c06a5b4f2dec0df7.bindPopup(popup_208501d8b23447bd5dfacb4f5f6a5dc8)
+        ;
+
+        
+    
+    
+            var marker_1c25320167e21b6e9ac9d3850f41aa9f = L.marker(
+                [51.4822, -3.1791],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_e948f547a4e7d07be424365357e1d9e1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3e3f7dcf327e79541f9e7a220f129824 = $(`<div id="html_3e3f7dcf327e79541f9e7a220f129824" style="width: 100.0%; height: 100.0%;">Wales National War Memorial</div>`)[0];
+                popup_e948f547a4e7d07be424365357e1d9e1.setContent(html_3e3f7dcf327e79541f9e7a220f129824);
+            
+        
+
+        marker_1c25320167e21b6e9ac9d3850f41aa9f.bindPopup(popup_e948f547a4e7d07be424365357e1d9e1)
+        ;
+
+        
+    
+    
+            var marker_468e1cb3c8e216281f8c7607c8121d56 = L.marker(
+                [51.482, -3.178],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_05e3d9583f928334512a9e3a07d9a870 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3b4132d9dc88aaeaa69f3f3012f408a6 = $(`<div id="html_3b4132d9dc88aaeaa69f3f3012f408a6" style="width: 100.0%; height: 100.0%;">Crowd Building (Old)</div>`)[0];
+                popup_05e3d9583f928334512a9e3a07d9a870.setContent(html_3b4132d9dc88aaeaa69f3f3012f408a6);
+            
+        
+
+        marker_468e1cb3c8e216281f8c7607c8121d56.bindPopup(popup_05e3d9583f928334512a9e3a07d9a870)
+        ;
+
+        
+    
+    
+            var marker_5193fd74e16d9745e7599c58c6d1db5c = L.marker(
+                [51.422, -3.253],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_0872a0e5445e7dd0df414252972d85bf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_726bc29e8e84ee334228333736019c4b = $(`<div id="html_726bc29e8e84ee334228333736019c4b" style="width: 100.0%; height: 100.0%;">St. Lythans Burial Chamber</div>`)[0];
+                popup_0872a0e5445e7dd0df414252972d85bf.setContent(html_726bc29e8e84ee334228333736019c4b);
+            
+        
+
+        marker_5193fd74e16d9745e7599c58c6d1db5c.bindPopup(popup_0872a0e5445e7dd0df414252972d85bf)
+        ;
+
+        
+    
+    
+            var marker_60491730e6d61078aa1865575f88bd68 = L.marker(
+                [51.442, -3.27],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_e92f1950a5bdd2b9fbe484908fd92b50 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_26f53884ba517e4c2c75d7f806c0ea63 = $(`<div id="html_26f53884ba517e4c2c75d7f806c0ea63" style="width: 100.0%; height: 100.0%;">Tinkinswood Burial Chamber</div>`)[0];
+                popup_e92f1950a5bdd2b9fbe484908fd92b50.setContent(html_26f53884ba517e4c2c75d7f806c0ea63);
+            
+        
+
+        marker_60491730e6d61078aa1865575f88bd68.bindPopup(popup_e92f1950a5bdd2b9fbe484908fd92b50)
+        ;
+
+        
+    
+    
+            var marker_6a9e883cbc90a6dae17011781c1d4309 = L.marker(
+                [51.568, -3.267],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_ea319efa121bb4e8c2e9ce9702690d54 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bc32ea0381266d03fc881b15c0454d27 = $(`<div id="html_bc32ea0381266d03fc881b15c0454d27" style="width: 100.0%; height: 100.0%;">Nantgarw China Works & Museum</div>`)[0];
+                popup_ea319efa121bb4e8c2e9ce9702690d54.setContent(html_bc32ea0381266d03fc881b15c0454d27);
+            
+        
+
+        marker_6a9e883cbc90a6dae17011781c1d4309.bindPopup(popup_ea319efa121bb4e8c2e9ce9702690d54)
+        ;
+
+        
+    
+    
+            var marker_81fa993a755dcf50293a2e289743cec7 = L.marker(
+                [51.48, -3.176],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_31ae882831c7b9db4add28cde4e439b6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_535331bfb6c33cee3dc70581173f98ac = $(`<div id="html_535331bfb6c33cee3dc70581173f98ac" style="width: 100.0%; height: 100.0%;">Tommy Cooper Statue</div>`)[0];
+                popup_31ae882831c7b9db4add28cde4e439b6.setContent(html_535331bfb6c33cee3dc70581173f98ac);
+            
+        
+
+        marker_81fa993a755dcf50293a2e289743cec7.bindPopup(popup_31ae882831c7b9db4add28cde4e439b6)
+        ;
+
+        
+    
+    
+            var marker_136fbc17537755d09cf81aac3da40498 = L.marker(
+                [51.49, -3.179],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_f16e5ebcf681e0335c44cec469b1f628 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2968c225a80adda71767dedacbf42753 = $(`<div id="html_2968c225a80adda71767dedacbf42753" style="width: 100.0%; height: 100.0%;">Old Bishops Palace</div>`)[0];
+                popup_f16e5ebcf681e0335c44cec469b1f628.setContent(html_2968c225a80adda71767dedacbf42753);
+            
+        
+
+        marker_136fbc17537755d09cf81aac3da40498.bindPopup(popup_f16e5ebcf681e0335c44cec469b1f628)
+        ;
+
+        
+    
+    
+            var marker_fa559497366b71304dc91dff575e6ffb = L.marker(
+                [51.482, -3.214],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_1e9880807babdd070672a2ae34b13a1d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bb3b06c0d5222d0d81ed156b754788a6 = $(`<div id="html_bb3b06c0d5222d0d81ed156b754788a6" style="width: 100.0%; height: 100.0%;">Insole Court</div>`)[0];
+                popup_1e9880807babdd070672a2ae34b13a1d.setContent(html_bb3b06c0d5222d0d81ed156b754788a6);
+            
+        
+
+        marker_fa559497366b71304dc91dff575e6ffb.bindPopup(popup_1e9880807babdd070672a2ae34b13a1d)
+        ;
+
+        
+    
+    
+            var marker_10aec37ae0880d9d85cdfabc03da538d = L.marker(
+                [51.399, -3.276],
+                {
+}
+            ).addTo(map_a4c046f400a571e4f88ffed39a45e1df);
+        
+    
+        var popup_bbca6c09baeb3c2fb120816e84821137 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_88072a88a531a4cea259711cba624e00 = $(`<div id="html_88072a88a531a4cea259711cba624e00" style="width: 100.0%; height: 100.0%;">Barry Castle</div>`)[0];
+                popup_bbca6c09baeb3c2fb120816e84821137.setContent(html_88072a88a531a4cea259711cba624e00);
+            
+        
+
+        marker_10aec37ae0880d9d85cdfabc03da538d.bindPopup(popup_bbca6c09baeb3c2fb120816e84821137)
+        ;
+
+        
+    
+</script>
+</html>
