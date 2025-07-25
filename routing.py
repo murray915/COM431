@@ -41,7 +41,8 @@ def dijkstra(graph, start, end):
                 path.append(removed.value)
                 removed = previous[removed]
             path.append(start.value)
-            print(f"shortest distance to {end.value}: ", distances[end])
+            path.reverse()
+            print(f"shortest distance to {end.value} from {start.value}: ", distances[end])
             print(f"path to {end.value}: \n")
             print(" -> ".join(path))
             return

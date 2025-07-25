@@ -5,6 +5,11 @@ class TreeNode:
         self.desc = desc
         self.parent = None
 
+    def add_child(self, child: object):
+        """ add child obj to self list"""
+        child.parent = self
+        self.children.append(child)
+        
     def get_level(self):
         """ get level of child list """
         level = 0
@@ -41,13 +46,6 @@ class TreeNode:
         if self.children:
             for child in self.children:
                 child.print_tree()
-
-
-    def add_child(self, child: object):
-        """ add child obj to self list"""
-        child.parent = self
-        self.children.append(child)
-
 
     def get_child_data(self, lvl2=None, lvl3=None) -> list:
         """ return child data & desc as list, input path lvl names """
@@ -152,6 +150,7 @@ def build_menu_tree():
     # additional functionality - show menu descriptions
     submenu8 = TreeNode("View Menu option descriptions","Descriptions of each sub menu within program")
     submenu8.add_child(TreeNode("View Menu Descriptions","Output table of sub menu options and their respective descriptions"))
+    submenu8.add_child(TreeNode("View Menu Tree","Print the full menu tree with all sub options"))
     submenu8.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu8)
 
@@ -164,7 +163,8 @@ def build_menu_tree():
     submenu_algs = TreeNode("Sorting algorithms","Run example data through all implemented sorting algorithms")
     submenu_algs.add_child(TreeNode("Bubble Sort","Run example data through Bubble Sort algorithm, printing process steps")) 
     submenu_algs.add_child(TreeNode("Merge sort","Run example data through Merge sort Sort algorithm, printing process steps"))
-    submenu_algs.add_child(TreeNode("Quicksort","Run example data through Quicksort Sort algorithm, printing process steps"))    
+    submenu_algs.add_child(TreeNode("Quicksort","Run example data through Quicksort Sort algorithm, printing process steps"))   
+    submenu_algs.add_child(TreeNode("Algorithm sort tester","Run all algorithms over time with increasing data, to see visually the process speed"))     
     submenu_algs.add_child(TreeNode("Return","Return to Main Menu"))
     submenu9.add_child(submenu_algs)
 
@@ -185,10 +185,3 @@ def build_menu_tree():
     root.add_child(submenu10)
 
     return root
-
-
-
-import multiprocessing as mlt
-
-mlt.__name__
-

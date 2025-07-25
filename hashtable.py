@@ -5,7 +5,7 @@ class Hashmap():
         self.size = 0
         self.next_index = 0
         self.chunks = [[] for _ in range(capacity)]
-
+        
     def __len__(self):
         return self.size
 

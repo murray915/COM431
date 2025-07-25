@@ -7,6 +7,7 @@ import queue_class as qc
 import demonstration as demo
 import routing as rout
 import stack_class as sc
+import muti_processing as multi
 import os
 from tabulate import tabulate
 
@@ -203,7 +204,8 @@ def mn_func_Delete_Point_of_Interest(treenode: object, poi_hs_table: object, use
         if ans.lower() != 'no' and poi_name != 'Exit':
             poi_hs_table.remove_key(poi_name,poi_obj)
 
-    print(f'\n\nPoint of Interest {poi_name} has been removed.')
+    if poi_name:
+        print(f'\n\nPoint of Interest {poi_name} has been removed.')
 
     return poi_hs_table
 
@@ -262,7 +264,7 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
                 poi_hs_table.put(i.poi_attribute('name'),i)
 
             poi_hs_table.update_hashtable_poi_index()
-            
+
         except Exception as err: # Exception Block. Return data to user & False
             print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n\tIf attempting to load a file, ensure that the filepath is input in full and correctly. \n\tCheck input, ensure they are forward slashed, and not within quotes or apostrophe example ; "
                   f"C:/Users/Murray/OneDrive/Documents/Uni/Playground/tester.json \n\tUser input value was :: {filepath}")
@@ -309,7 +311,7 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
 def mn_func_Questions_and_Answers_for_Points_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to update poi with questions/answers """
     ans = 'default'
-    user_search_value = input('Please input the name of the Point of Interest to get data for : ')
+    user_search_value = input('Please input the name of the Point of Interest to get data for : ')    
     # Default to fuzzy search
     poi_name, poi_obj, ans = sralgs.search_algs_select(poi_hs_table, user_search_value, "Fuzzy",True)
         
@@ -355,16 +357,19 @@ def mn_func_Questions_and_Answers_for_Points_of_Interest(treenode: object, poi_h
 def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to view menu descriptions """
     
-    # get main menu
-    outputlist = []
-    for i in range(0, len(treenode.children)):
-        outputlist.append([treenode.children[i].data, treenode.children[i].desc])
+    if user_input_sub == "View Menu Tree":
+        treenode.print_tree()
+    else:
+        # get main menu
+        outputlist = []
+        for i in range(0, len(treenode.children)):
+            outputlist.append([treenode.children[i].data, treenode.children[i].desc])
 
-    headers = ["Option","Description"]
-    
-    print('')
-    print_data_tabulate(headers, outputlist)                        
-    print('')
+        headers = ["Option","Description"]
+        
+        print('')
+        print_data_tabulate(headers, outputlist)                        
+        print('')
 
     return poi_hs_table
 
@@ -459,23 +464,27 @@ def mn_func_Demonstration_of_Data_Structures_and_Algorithms(treenode: object, po
     elif 'sort' in demo_sub.lower():
         print(f'sort {demo_sub}')
 
-        #params
-        print_cons = True        
-        check = True
+        if demo_sub == "Algorithm sort tester":
+            multi.run_alg_tester()
+            #exec(open("muti_processing.py").read())
 
-        while check:
-            user_input = input('Please input number of example data to sort (greater than or equal to 11) : ')
-            
-            if user_input.isnumeric():
-                if int(user_input) >= 11:
-                    example_size = int(user_input)        
-                    check = False
+        else:
+            #params
+            print_cons = True        
+            check = True
 
-        ori_list = demo.get_data_arr(example_size)
-        runset = str(demo_sub.replace(' ', '_').lower())
+            while check:
+                user_input = input('Please input number of example data to sort (greater than or equal to 11) : ')
+                
+                if user_input.isnumeric():
+                    if int(user_input) >= 11:
+                        example_size = int(user_input)        
+                        check = False
 
-        # call function
-        demo.demo_sorting_algr(ori_list, print_cons, runset)
+            ori_list = demo.get_data_arr(example_size)
+            runset = str(demo_sub.replace(' ', '_').lower())
 
+            # call function
+            demo.demo_sorting_algr(ori_list, print_cons, runset)
 
     return poi_hs_table

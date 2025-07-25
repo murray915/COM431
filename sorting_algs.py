@@ -224,19 +224,33 @@ def sort_str_list(str_list: list, orderby = "ASC", list_index_sort = 0) -> list 
 
         elif isinstance(str_list[0], (int, str)):
 
-            # correct formatting to str of str(s)
-            output_str  = ",".join(str_list)
-            l=output_str.split(',')
-            output_list=[]
+            if isinstance(str_list[0], str):
 
-            # remove min/max respective of orderby
-            # found value into new output list
-            while l:
-                if orderby == "ASC":
-                    output_list+=[l.pop(l.index(min(l)))]
-                else:
-                    output_list+=[l.pop(l.index(max(l)))]
+                # correct formatting to str of str(s)                
+                output_str  = ",".join(str_list)
+                l=output_str.split(',')
+                output_list=[]
 
+                # remove min/max respective of orderby
+                # found value into new output list
+                while l:
+                    if orderby == "ASC":
+                        output_list+=[l.pop(l.index(min(l)))]
+                    else:
+                        output_list+=[l.pop(l.index(max(l)))]
+
+            else:
+                l = str_list.copy()
+                output_list=[]
+
+                # remove min/max respective of orderby
+                # found value into new output list
+                while l:
+                        if orderby.upper() == "ASC":
+                            output_list.append(l.pop(l.index(min(l))))
+                        else:
+                            output_list.append(l.pop(l.index(max(l))))
+           
         else:
             return False
         
