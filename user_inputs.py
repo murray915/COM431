@@ -6,6 +6,7 @@ import searching_algs as sralgs
 import queue_class as qc
 import demonstration as demo
 import routing as rout
+import stack_class as sc
 import os
 from tabulate import tabulate
 
@@ -76,6 +77,7 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
     
     # add POI via user input
     if user_input_sub == "Add point of Interest":
+        
         # Option Data
         poi_types = [
             ["Restaurants",''],
@@ -90,18 +92,23 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
             ["Other",'']
         ]   
 
+        stack = sc.Stack()
+
         # User questions
-        poi_id = poi_hs_table.get_next_index()
-        name = input('Please input the name of the new Point of Interest: ')
-        poi_type = display_options(poi_types, 'Point of Interest Types', 'Point of Interest type option')
-        desc = input('Please input a description of the new Point of Interest: ')
-        quest = []
-        location  = input('Please input the location (contry) of the new Point of Interest: ')
+        stack.stack_add(poi_hs_table.get_next_index())
+        stack.stack_add(input('Please input the name of the new Point of Interest: '))
+        stack.stack_add(display_options(poi_types, 'Point of Interest Types', 'Point of Interest type option'))
+        stack.stack_add(input('Please input a description of the new Point of Interest: '))        
+        stack.stack_add([])        
+        stack.stack_add(input('Please input the location (contry) of the new Point of Interest: '))
+
         long_var = input('Please input the longitude of the new Point of Interest: ')
         lang_var = input('Please input the lonlatitude of the new Point of Interest: ')
-        long_and_lang = [long_var, lang_var]
+        stack.stack_add([long_var, lang_var])
 
-        poi_hs_table.put(name, poi.point_of_interest(poi_id, name, poi_type, desc, quest, location, long_and_lang))
+        data = stack.stack_all_data()
+
+        poi_hs_table.put(data[0], poi.point_of_interest(data[0], data[1], data[2], data[3], data[4], data[5], data[6]))
     
     # add POI via random data input
     elif "Add random data point of Interest data" == user_input_sub:
@@ -254,6 +261,8 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
                 print(i.poi_attribute('name'))
                 poi_hs_table.put(i.poi_attribute('name'),i)
 
+            poi_hs_table.update_hashtable_poi_index()
+            
         except Exception as err: # Exception Block. Return data to user & False
             print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n\tIf attempting to load a file, ensure that the filepath is input in full and correctly. \n\tCheck input, ensure they are forward slashed, and not within quotes or apostrophe example ; "
                   f"C:/Users/Murray/OneDrive/Documents/Uni/Playground/tester.json \n\tUser input value was :: {filepath}")
@@ -279,6 +288,7 @@ def mn_func_Save_and_Load_Points_of_Interest_from_file(treenode: object, poi_hs_
             print(i.poi_attribute('name'))
             poi_hs_table.put(i.poi_attribute('name'),i)
 
+        poi_hs_table.update_hashtable_poi_index()
 
     elif user_input_sub == "View json file structure":
 
@@ -361,30 +371,70 @@ def mn_func_View_Menu_option_descriptions(treenode: object, poi_hs_table: object
 def mn_func_Router_from_Point_of_Interest_to_Point_of_Interest(treenode: object, poi_hs_table: object, user_input_sub: str) -> object:
     """ from user option to view menu descriptions """
 
-    if user_input_sub == "View Full Cardiff Points of Interest List":
-        pass
-
-    else:
-        point_of_interest_list = [
-                [ "Cardiff Castle",""],[ "Animal Wall",""],[ "St John the Baptist Church",""],[ "City Hall",""],[ "Pierhead Building",""],
-                [ "St Davids Hall",""],[ "Ianto's Shrine",""],[ "Wales Millennium Centre",""],[ "Norwegian Church Arts Centre",""],[ "Principality Stadium",""],[ "Cardiff City Stadium",""],
-                [ "Cardiff Bay Yacht Club",""],[ "Techniquest (Science Centre)",""],[ "Principality Stadium Tours",""],[ "National Museum Cardiff",""],[ "St Fagans Castle",""],[ "Castell Coch",""],[ "Caerphilly Castle",""],[ "Llandaff Cathedral",""],
-                [ "St Davids Metropolitan Cathedral",""],[ "Bute Park",""],[ "Roath Park",""],[ "Victoria Park",""],[ "Cefn Onn Park",""],[ "Cardiff Bay Wetlands Reserve",""],[ "Cardiff Bay Barrage",""],[ "Wales National War Memorial",""],[ "Crowd Building (Old)",""],
-                [ "St. Lythans Burial Chamber",""],[ "Tinkinswood Burial Chamber",""],[ "Nantgarw China Works & Museum",""],[ "Tommy Cooper Statue",""],[ "Old Bishops Palace",""],[ "Insole Court",""],[ "Barry Castle",""]
+    point_of_interest_list = [
+            ["Cardiff Castle", "A medieval castle and Victorian Gothic revival mansion in the city centre, with over 2,000 years of history."],
+            ["Animal Wall", "A famous wall with sculpted animals, designed by architect William Burges in the 19th century."],
+            ["St John the Baptist Church", "One of Cardiffs oldest churches, dating back to the 12th century, located near the city centre."],
+            ["City Hall", "An Edwardian baroque-style civic building in Cathays Park, known for its grand architecture and public events."],
+            ["Pierhead Building", "A historic red-brick building in Cardiff Bay, now a museum and visitor centre telling the story of Welsh politics."],
+            ["St Davids Hall", "Cardiffs premier concert venue and home of the BBC Cardiff Singer of the World competition."],
+            ["Ianto's Shrine", "A fan-created memorial to the character Ianto Jones from the TV show *Torchwood*, located in Cardiff Bay."],
+            ["Wales Millennium Centre", "An iconic performing arts centre in Cardiff Bay, known for its striking architecture and theatre productions."],
+            ["Norwegian Church Arts Centre", "A former church now serving as an arts centre and café, once frequented by author Roald Dahl."],
+            ["Principality Stadium", "Wales national stadium, hosting major rugby and football matches as well as concerts and events."],
+            ["Cardiff City Stadium", "The home ground of Cardiff City Football Club and the Wales national football team."],
+            ["Cardiff Bay Yacht Club", "A sailing and water sports club located on the scenic waterfront of Cardiff Bay."],
+            ["Techniquest (Science Centre)", "A hands-on science and discovery centre for children and families in Cardiff Bay."],
+            ["Principality Stadium Tours", "A behind-the-scenes tour of the iconic stadium, including the pitch, locker rooms, and VIP areas."],
+            ["National Museum Cardiff", "A major museum with art, natural history, and archaeology collections, located in the city centre."],
+            ["St Fagans Castle", "A 16th-century manor house and part of the St Fagans National Museum of History, showcasing Welsh life."],
+            ["Castell Coch", "A fairytale-like 19th-century Gothic Revival castle set on ancient foundations, located north of Cardiff."],
+            ["Caerphilly Castle", "One of the largest castles in the UK, featuring expansive moats and medieval architecture."],
+            ["Llandaff Cathedral", "An ancient and active Anglican cathedral located in the historic Llandaff district of Cardiff."],
+            ["St Davids Metropolitan Cathedral", "The Roman Catholic cathedral of Cardiff, known for its stunning interior and music."],
+            ["Bute Park", "A vast public park next to Cardiff Castle, ideal for walking, cycling, and enjoying nature in the city."],
+            ["Roath Park", "A Victorian park with a large boating lake, conservatory, and beautiful gardens."],
+            ["Victoria Park", "A family-friendly park with playgrounds, splash pads, and green spaces in west Cardiff."],
+            ["Cefn Onn Park", "A landscaped country park with woodland trails and ornamental gardens in the north of Cardiff."],
+            ["Cardiff Bay Wetlands Reserve", "A protected nature area supporting birds and aquatic wildlife, offering walking paths and views."],
+            ["Cardiff Bay Barrage", "A sea barrier with a pedestrian and cycle path linking Cardiff Bay to Penarth, offering scenic views."],
+            ["Wales National War Memorial", "A Grade I listed war memorial in Cathays Park, commemorating Welsh soldiers who died in wars."],
+            ["Crowd Building (Old)", "A historic building in Cardiff, previously a notable hub—exact location or current status may vary."],
+            ["St. Lythans Burial Chamber", "A Neolithic dolmen over 6,000 years old, located in the Vale of Glamorgan, just outside Cardiff."],
+            ["Tinkinswood Burial Chamber", "A well-preserved Neolithic tomb with one of the largest capstones in Britain, near Cardiff."],
+            ["Nantgarw China Works & Museum", "A museum celebrating fine porcelain production and local history in the village of Nantgarw."],
+            ["Tommy Cooper Statue", "A statue commemorating the famous Welsh comedian, located in his hometown of Caerphilly."],
+            ["Old Bishops Palace", "Ruins of a historic residence of the Bishops of Llandaff, located near the cathedral."],
+            ["Insole Court", "A restored Victorian Gothic mansion with gardens and a café, open to the public in west Cardiff."],
+            ["Barry Castle", "A small ruined medieval castle located in Barry, south of Cardiff, with views over the Bristol Channel."]
         ]
 
+    if user_input_sub == "View Full Cardiff Points of Interest List":
+        
+        header_list = ['Point of Interest','Description of Point of Interest']
+        tabulate_data = point_of_interest_list
+
+        # print tabulate output to screen
+        print('')    
+        print_data_tabulate(header_list, tabulate_data)
+        print('')
+
+    else:
+ 
         # request sub menu option
         print(f'\n\nTwo selection to follow, first is the Starting point of interest, and the second being the destination point of interest\n\n')
 
         user_input_1 = display_options(point_of_interest_list, 'Points of Interest Selection (Start From)', 'point of interest option')
         user_input_2 = display_options(point_of_interest_list, 'Points of Interest Selection (Travel To)', 'point of interest option')
 
-        cleaned_user_input_to = user_input_1.replace(' ','_').replace('(','').replace(')','').replace('.','').replace('&','')
-        cleaned_user_input_from = user_input_2.replace(' ','_').replace('(','').replace(')','').replace('.','').replace('&','')
+        #update userinput to list value
+        for i, poi in enumerate(point_of_interest_list):
+            if poi[0] == user_input_1:
+                user_input_1 = i
+            elif poi[0] == user_input_2:
+                user_input_2 = i
 
-        print(cleaned_user_input_from, cleaned_user_input_to)
-
-        rout.run_dijkstra(poi_hs_table, cleaned_user_input_from, cleaned_user_input_to)
+        rout.run_dijkstra(poi_hs_table, user_input_1, user_input_2)
 
     return poi_hs_table    
 

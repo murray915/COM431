@@ -12,7 +12,7 @@ class Hashmap():
     def get_next_index(self):   
         return self.next_index +1
 
-    def get_next_index_rest(self):   
+    def get_next_index_rest(self):
         return self.next_index +1
     
     def __contains__(self, key) -> bool | int:
@@ -95,6 +95,15 @@ class Hashmap():
         elif search_val.lower() == "items":
             return [(k, v) for chunk in self.chunks for k, v in chunk]
 
+    def update_hashtable_poi_index(self) -> list | str:
+        """ upon file loadin, update all index poi ids to reset """
+        poi_id = 1
+
+        for chunk in self.chunks:
+            for _, v in chunk:
+                v.poi_ID_update(poi_id)
+                poi_id += 1
+        
     def hash_function(self, key) -> int:
         """ hash map func, return hashkey """
         key_string = str(key)

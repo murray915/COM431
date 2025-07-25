@@ -42,7 +42,8 @@ def dijkstra(graph, start, end):
                 removed = previous[removed]
             path.append(start.value)
             print(f"shortest distance to {end.value}: ", distances[end])
-            print(f"path to {end.value}: ", path[::-1])
+            print(f"path to {end.value}: \n")
+            print(" -> ".join(path))
             return
 
         for edge in graph.adjacency_list[removed]:
@@ -91,47 +92,8 @@ class PriorityQueue:
         raise KeyError('pop from an empty priority queue')
 
 
-def run_dijkstra(poi_hs_table: object, user_input_from: str, user_input_to: str) -> object:
+def run_dijkstra(poi_hs_table: object, user_input_from: int, user_input_to: int) -> object:
     """ from user option to view menu descriptions """ 
-
-    # Data
-    poi_list = {    
-        "Cardiff Castle": ["St John the Baptist Church","Animal Wall","Wales National War Memorial","Bute Park"],
-        "Animal Wall": ["Cardiff Castle","St John the Baptist Church","Wales National War Memorial","Cardiff City Stadium"],
-        "St John the Baptist Church": ["Cardiff Castle","Animal Wall","Bute Park"],
-        "City Hall": ["Bute Park","Crowd Building (Old)","Principality Stadium Tours"],
-        "Pierhead Building": ["Norwegian Church Arts Centre","Wales Millennium Centre"],
-        "St Davids Hall": ["Principality Stadium Tours","Tommy Cooper Statue","Iantos Shrine"],
-        "Iantos Shrine": ["St Davids Metropolitan Cathedral","Principality Stadium Tours","St Davids Hall","Wales Millennium Centre"],
-        "Wales Millennium Centre": ["Techniquest (Science Centre)","Pierhead Building","Iantos Shrine","St Davids Metropolitan Cathedral"],
-        "Norwegian Church Arts Centre": ["Cardiff Bay Barrage","Techniquest (Science Centre)","Pierhead Building"],
-        "Principality Stadium": ["Iantos Shrine","St Davids Hall","City Hall","Victoria Park"],
-        "Cardiff City Stadium": ["Animal Wall","National Museum Cardiff","Old Bishops Palace"],
-        "Cardiff Bay Yacht Club": ["St. Lythans Burial Chamber","Cardiff Bay Wetlands Reserve","Cardiff Bay Barrage"],
-        "Techniquest (Science Centre)": ["Cardiff Bay Barrage","Norwegian Church Arts Centre","Wales Millennium Centre"],
-        "Principality Stadium Tours": ["Victoria Park","Iantos Shrine","St Davids Hall","City Hall"],
-        "National Museum Cardiff": ["Cardiff City Stadium","Old Bishops Palace","Roath Park"],
-        "St Fagans Castle": ["Insole Court","Victoria Park","Tinkinswood Burial Chamber","St. Lythans Burial Chamber"],
-        "Castell Coch": ["Llandaff Cathedral","Insole Court","Nantgarw China Works & Museum"],
-        "Caerphilly Castle": ["Nantgarw China Works & Museum","Cefn Onn Park"],
-        "Llandaff Cathedral": ["Castell Coch","Victoria Park","Insole Court"],
-        "St Davids Metropolitan Cathedral": ["Wales Millennium Centre","Iantos Shrine","Tommy Cooper Statue"],
-        "Bute Park": ["City Hall","Wales National War Memorial","Cardiff Castle","St John the Baptist Church"],
-        "Roath Park": ["Old Bishops Palace","National Museum Cardiff","Cefn Onn Park"],
-        "Victoria Park": ["St Fagans Castle","Insole Court","Llandaff Cathedral","Principality Stadium Tours"],
-        "Cefn Onn Park": ["Roath Park","Caerphilly Castle","Nantgarw China Works & Museum"],
-        "Cardiff Bay Wetlands Reserve": ["Cardiff Bay Yacht Club","Cardiff Bay Barrage"],
-        "Cardiff Bay Barrage": ["Cardiff Bay Yacht Club","Cardiff Bay Wetlands Reserve","Techniquest (Science Centre)","Norwegian Church Arts Centre"],
-        "Wales National War Memorial": ["Crowd Building (Old)","Bute Park","Cardiff Castle","Animal Wall"],
-        "Crowd Building (Old)": ["Wales National War Memorial","City Hall","Tommy Cooper Statue"],
-        "St. Lythans Burial Chamber": ["Cardiff Bay Yacht Club","St Fagans Castle","Barry Castle","Tinkinswood Burial Chamber"],
-        "Tinkinswood Burial Chamber": ["St. Lythans Burial Chamber","St Fagans Castle","Barry Castle"],
-        "Nantgarw China Works & Museum": ["Castell Coch","Caerphilly Castle","Cefn Onn Park"],
-        "Tommy Cooper Statue": ["St Davids Hall","St Davids Metropolitan Cathedral","Crowd Building (Old)"],
-        "Old Bishops Palace": ["Cardiff City Stadium","National Museum Cardiff","Roath Park"],
-        "Insole Court": ["St Fagans Castle","Victoria Park","Llandaff Cathedral","Castell Coch"],
-        "Barry Castle": ["St. Lythans Burial Chamber","Tinkinswood Burial Chamber"]
-    }
 
     poi_l_and_l_data = {
         "Cardiff_Castle":  [51.482208, -3.181301],
@@ -253,12 +215,10 @@ def run_dijkstra(poi_hs_table: object, user_input_from: str, user_input_to: str)
 
     }
 
-
-    print(user_input_from, user_input_to)
-    
+    start_var = vertices[user_input_from]
+    to_var = vertices[user_input_to]    
 
     my_graph = Graph(adj_list)
-    dijkstra(my_graph, start=user_input_from, end=user_input_to)
-    #dijkstra(my_graph, start="Principality_Stadium", end="Animal_Wall")
+    dijkstra(my_graph, start=vertices[user_input_from], end=vertices[user_input_to])
 
     return poi_hs_table

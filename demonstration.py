@@ -50,7 +50,7 @@ def demo_stack():
     print(f'Demo for Stack, random add / remove actions and results')
 
     for _ in range(1, rd.randrange(2,8)):
-        num = rd.randrange(1,8)        
+        num = rd.randrange(1,8)
         print(f'\tadd to stack {num}')
         demo_stack.stack_add(num)
 

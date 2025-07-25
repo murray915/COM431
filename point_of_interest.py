@@ -14,13 +14,23 @@ class point_of_interest:
     def user_ques_ans_update(self, quest: list) -> bool:
         """ Add user quest/ans to self.quest list """        
         try:
-            self.quest = quest            
+            self.quest = quest
             return True
         
         except Exception as err: # Exception Block. Return data to user & False
             print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
             return False
 
+    def poi_ID_update(self, poi_id: int):
+        """ Update poi id """        
+        try:
+            self.id = poi_id
+            return True
+        
+        except Exception as err: # Exception Block. Return data to user & False
+            print(f"\n\n** Unexpected {err=}, {type(err)=} **\n\n")
+            return False
+        
     def poi_attribute(self, attribute: str):
         """ get poi attribute """
         """ inputs :: id / name  poi_type, desc, quest, location or all """

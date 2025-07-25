@@ -1,6 +1,3 @@
-# Key notes / learning sources 
-    # - https://www.w3schools.com/python/python_dsa_stacks.asp
-
 class Stack:
     def __init__(self):
         self.stack = []
@@ -24,6 +21,13 @@ class Stack:
             return False
         return self.stack[-1]
 
+    def stack_all_data(self) -> str | bool:
+        """ return the last data input on stack """
+        if self.isempty():
+            print('Stack is empty')
+            return False
+        return self.stack
+    
     def stack_add(self, data) -> bool:
         """ add data to stack """        
         self.stack.append(data)
