@@ -77,7 +77,7 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
     """ from user option to view menu descriptions; add POI or random POI records """
     
     # add POI via user input
-    if user_input_sub == "Add point of Interest":
+    if user_input_sub == "Add Point of Interest":
         
         # Option Data
         poi_types = [
@@ -101,10 +101,10 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
         stack.stack_add(display_options(poi_types, 'Point of Interest Types', 'Point of Interest type option'))
         stack.stack_add(input('Please input a description of the new Point of Interest: '))        
         stack.stack_add([])        
-        stack.stack_add(input('Please input the location (contry) of the new Point of Interest: '))
+        stack.stack_add(input('Please input the location (country) of the new Point of Interest: '))
 
         long_var = input('Please input the longitude of the new Point of Interest: ')
-        lang_var = input('Please input the lonlatitude of the new Point of Interest: ')
+        lang_var = input('Please input the latitude of the new Point of Interest: ')
         stack.stack_add([long_var, lang_var])
 
         data = stack.stack_all_data()
@@ -112,7 +112,7 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
         poi_hs_table.put(data[0], poi.point_of_interest(data[0], data[1], data[2], data[3], data[4], data[5], data[6]))
     
     # add POI via random data input
-    elif "Add random data point of Interest data" == user_input_sub:
+    elif "Add random Point of Interest data" == user_input_sub:
         user_input = True
 
         while user_input:
