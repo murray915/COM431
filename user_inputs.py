@@ -97,7 +97,7 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
 
         # User questions
         stack.stack_add(poi_hs_table.get_next_index())
-        stack.stack_add(input('Please input the name of the new Point of Interest: '))
+        stack.stack_add(str(input('Please input the name of the new Point of Interest: ')))
         stack.stack_add(display_options(poi_types, 'Point of Interest Types', 'Point of Interest type option'))
         stack.stack_add(input('Please input a description of the new Point of Interest: '))        
         stack.stack_add([])        
@@ -109,7 +109,7 @@ def mn_func_Add_Point_of_Interest(treenode: object, poi_hs_table: object, user_i
 
         data = stack.stack_all_data()
 
-        poi_hs_table.put(data[0], poi.point_of_interest(data[0], data[1], data[2], data[3], data[4], data[5], data[6]))
+        poi_hs_table.put(data[1], poi.point_of_interest(data[0], data[1], data[2], data[3], data[4], data[5], data[6]))
     
     # add POI via random data input
     elif "Add random Point of Interest data" == user_input_sub:
@@ -169,7 +169,7 @@ def mn_func_Display_all_Points_of_Interest(treenode: object, poi_hs_table: objec
         sorted_list = algs.quicksort(sort_list, 0, len(sort_list) -1)
 
     # sort data ASC/DESC
-    if user_input_sub == "Display POIs by descending order":
+    if "descending" in user_input_sub:
         sorted_list.reverse()
 
     # output data to correct format to print
@@ -465,9 +465,11 @@ def mn_func_Demonstration_of_Data_Structures_and_Algorithms(treenode: object, po
         print(f'sort {demo_sub}')
 
         if demo_sub == "Algorithm sort tester":
-            multi.run_alg_tester()
-            #exec(open("muti_processing.py").read())
-
+            # multi.run_sorting_test()
+            # import time
+            # time.sleep(7)
+            pass
+        
         else:
             #params
             print_cons = True        

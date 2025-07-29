@@ -36,7 +36,7 @@ def task_4(ori_list: list):
     output = sgs.sort_str_list(ori_list)
 
     return round((time.time() - start_time),5)
-
+    
 def run_alg_tester():
     out1 = []
     out2 = []
@@ -80,8 +80,14 @@ def run_alg_tester():
     plt.show()
 
 
-if __name__ == '__main__':
+
+def run_sorting_test():
     freeze_support()
     set_start_method('spawn')
     p = Process(target=run_alg_tester)
     p.start()
+
+
+
+if __name__ == '__main__':
+    run_sorting_test()

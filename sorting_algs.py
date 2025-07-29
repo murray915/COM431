@@ -1,10 +1,3 @@
-# Key notes / learning sources 
-    # - https://realpython.com/sorting-algorithms-python/
-    # - https://www.w3resource.com/python-exercises/data-structures-and-algorithms/python-search-and-sorting-exercise-4.php
-    # - https://stackabuse.com/bubble-sort-in-python/
-    # - https://www.youtube.com/watch?v=cVZMah9kEjI 
-    # - https://www.datacamp.com/tutorial/python-merge-sort-tutorial
-    # - https://www.youtube.com/watch?v=9KBwdDEwal8 ######## quicksort video ########
 
 def lexicographically_compare_two_strs(str_1: str, str_2: str, orderby = "ASC") -> list:    
     """ input two strings, output correct order of strings in list """
@@ -200,7 +193,7 @@ def sort_str_list(str_list: list, orderby = "ASC", list_index_sort = 0) -> list 
     """ sort list of strings (or list of lists/tuples) return ASC list. If not list/tuple/int/str or error on sort False returned """
     
     try:
-            
+           
         if isinstance(str_list[0], (list, tuple)):
 
             # correct formatting to str of str(s)
@@ -210,13 +203,13 @@ def sort_str_list(str_list: list, orderby = "ASC", list_index_sort = 0) -> list 
             # found value into new output list
             while str_list:
                 if orderby == "ASC":
-                    res = min(i[list_index_sort] for i in str_list)
+                    res = min(str(i[list_index_sort]) for i in str_list)
                     for i, element in enumerate(str_list):
                         if element[list_index_sort] == res:
                             output_list.append(element)
                             str_list.pop(i)
                 else:
-                    res = max(i[list_index_sort] for i in str_list)
+                    res = max(str(i[list_index_sort]) for i in str_list)
                     for i, element in enumerate(str_list):
                         if element[list_index_sort] == res:
                             output_list.append(element)

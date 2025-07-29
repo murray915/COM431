@@ -18,8 +18,8 @@ def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_
     
     # get repo of pois & sort
     list_obj = poi_hs_table.search_in_chunks('items')
-    outlist_sorted = algs.sort_str_list(list_obj,"ASC",0)    
-
+    outlist_sorted = algs.sort_str_list(list_obj,"ASC",0)  
+    
     # If search user input is ID only
     if user_input_sub == "Search by Point of Interest ID":
         search_list = [i[1].poi_attribute('id') for i in outlist_sorted]
@@ -39,7 +39,24 @@ def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_
             ui.print_data_tabulate(header_list, tabulate_data)
             print('') 
 
-            return None, None, None
+            # ask user to select value & return val
+            if ask_question:
+                input_check = True
+            else:
+                input_check = False
+
+            while input_check:
+                ans = input(f'\n Select point of interest : {object_list[0][0]}? Yes/No: ')
+
+                if ans.lower() not in ['yes','no']:
+                    print('Please input "Yes" or "No"')
+                else:
+                    input_check = False
+
+            poi_name = object_list[0][0]
+            poi_obj = object_list[0][1]
+
+            return poi_name, poi_obj, ans
          
     else:
         # user params
@@ -54,14 +71,11 @@ def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_
             # linear search to handle all other, duplications, fuzzy and case insensitve/sensitive
 
         for i in search_list:
-            if i == user_search_value or user_search_value in i:
+            if i == user_search_value or str(user_search_value) in search_list:
                 count +=1
-
-        print(f'{search_list}\n\n{count}\n\n')
 
         if count >= 2 or fuzzy_sear == True:
             search_output = linear_search(search_list, user_search_value, case_sens, fuzzy_sear)
-            print('linear called')
 
         elif count == 1 and case_sens == True and fuzzy_sear == False:
             search_output = poi_hs_table.get_value(user_search_value)
@@ -69,11 +83,9 @@ def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_
             if search_output:
                 search_output = [search_list.index(search_output.poi_attribute('name'))]
 
-            print('hastable called')
         else:
             search_output = binary_search(search_list, user_search_value, case_sens)
 
-            print('binary called')
         # if not found exit delete
         if search_output is None:
             print(f'\n\nPoint of Interest not found. Please check Point of interest exists\n')
@@ -124,7 +136,6 @@ def search_algs_select(poi_hs_table: object, user_search_value: int | str, user_
 
     return poi_name, poi_obj, ans
 
-
 def user_search_params(user_input_sub: str) -> str:
     """ get user input params for search """
     input_check = True
@@ -165,7 +176,6 @@ def linear_search(search_list: list, search_value: str | int, search_sensitvity 
                 if search_fuzzy == False:
 
                     # if case sensitivity off
-                    print(str(search_list[i]).lower())
                     if search_sensitvity == False and str(search_list[i]).lower() == search_value.lower():
                         output_list.append(i)
                     # if case sensitivity on
@@ -174,7 +184,7 @@ def linear_search(search_list: list, search_value: str | int, search_sensitvity 
                 
                 # if fuzzy search is on
                 else:
-
+                    #print(str(search_list[i]).lower())
                     if search_sensitvity == False and search_value.lower() in str(search_list[i]).lower():
                         output_list.append(i)
                     elif search_sensitvity == True and str(search_value) in str(search_list[i]):
@@ -202,6 +212,7 @@ def binary_search(search_list: list, search_value: str | int, search_sensitvity 
     # general params
     start_pos = 0
     end_pos = len(search_list) -1
+    search_list_case = [x.lower() for x in search_list]
 
     # loop through midpoints recursively until found
     while start_pos <= end_pos:        
@@ -235,7 +246,7 @@ def binary_search(search_list: list, search_value: str | int, search_sensitvity 
         # if case sensitity False
         elif not search_sensitvity:
 
-            value = str(search_list[mid_point])
+            value = str(search_list_case[mid_point])
             if value.lower() == search_value.lower():
                 output.append(mid_point)
                 return output

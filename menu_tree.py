@@ -105,8 +105,8 @@ def build_menu_tree():
      # depth 2 menu option
      # task 3
     submenu3 = TreeNode("Display all Points of Interest","Display all Points of Interest (POIs) - ASC or DESC")
-    submenu3.add_child(TreeNode("Display POIs by ascending order","-"))
-    submenu3.add_child(TreeNode("Display POIs by descending order","-"))
+    submenu3.add_child(TreeNode("Display POIs by ascending order (a-z, 0-9)","-"))
+    submenu3.add_child(TreeNode("Display POIs by descending order (z-a, 9-0)","-"))
     submenu3.add_child(TreeNode("Return","Return to Main Menu"))
     root.add_child(submenu3)   
 
