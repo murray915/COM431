@@ -11,7 +11,7 @@ def main():
     main_menu = mt.get_main_menu(rootnode)
 
     exit = True
-    poi_hs_table = hs.Hashmap(100)
+    poi_hs_table = hs.Hashmap(127)
 
     while exit:
         user_input_main = ui.display_options(main_menu, 'Main Menu','menu option')
